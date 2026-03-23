@@ -6,7 +6,7 @@ public class Mayor_Menor {
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		
-		//Declaro las variables
+		//eclaro las variables
 		int []arreglo = new int[10];
 		int mayor = arreglo[0];
 		int menor = arreglo[0];
