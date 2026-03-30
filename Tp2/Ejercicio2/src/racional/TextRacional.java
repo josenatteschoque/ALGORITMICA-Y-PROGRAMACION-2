@@ -13,11 +13,12 @@ public class TextRacional {
 	public static void main(String[] args) {
 		Racional r1 = new Racional(3,4);
 		Racional r2 = new Racional(1,4);
-		
+					
 		System.out.println("La suma es: "+ r1.sumar(r2));
 		System.out.println("La resta es: "+r1.restar(r2));
 		System.out.println("El producto es: "+r1.producto(r2));
 		System.out.println("La division es: "+r1.division(r2));
+		System.out.print("La potencia es: "+r1.potencia(2));
 		
 	}
 
