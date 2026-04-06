@@ -1,11 +1,11 @@
-package progression;
+package progressiones.tipos;
+
+import progressiones.base.Progression;
 
 public class FibonacciProgression extends Progression{
 
 	protected long prev;
-	
-	public FibonacciProgression() { this(0,1); }
-	
+		
 	public FibonacciProgression(long first,long second) {
 		super(first);
 		prev = second - first;

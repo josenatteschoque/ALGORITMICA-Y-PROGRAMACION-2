@@ -1,10 +1,9 @@
-package progression;
+package progressiones.base;
 
-public class Progression {
+public abstract class Progression {
 	
 	protected long current;
-	
-	public Progression() { this(0); }
+
 
 	public Progression(long start) { current = start; }
 	
@@ -15,9 +14,8 @@ public class Progression {
 		return answer;
 	}
 	
-	protected void advance() {
-		current++;
-	}
+	//Metodo abstracto: Cada hijo debe decir como avazar
+	protected abstract void advance();
 	
 	public void printProgression(int n) {
 		System.out.print(nextValue());
