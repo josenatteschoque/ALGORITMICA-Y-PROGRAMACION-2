@@ -15,6 +15,7 @@ public class Fecha {
 			this.dia = 1;
 			this.mes = 1;
 			this.anio = 2024;
+			System.out.println("Error! se asigno una fecha por defecto 01/01/2024");
 		}
 	}
 	
@@ -61,7 +62,7 @@ public class Fecha {
 		}	
 	}
 	
-	//Metodo que verifica que fecha es mayor
+	//Metodo que Compara fechas
 	public int Comparar(Fecha otro) {
 		//Comparo los años
 		if(this.anio > otro.anio) return 1;
@@ -69,7 +70,7 @@ public class Fecha {
 
 		//Comparo los meses
 		if(this.mes > otro.mes) return 1;
-		if(this.mes > otro.mes) return -1;
+		if(this.mes < otro.mes) return -1;
 		
 		//Comparo los dias
 		if(this.dia > otro.dia) return 1;
@@ -77,6 +78,27 @@ public class Fecha {
 		
 		//Si son iguales
 		return 0;
+	}
+	
+	public int ContadorDia(Fecha otro) {
+		Fecha fechaAuxiliar;
+		Fecha fechaFinal;
+		
+		if(this.Comparar(otro) < 0) {
+			//La fecha menor
+			fechaAuxiliar = new Fecha(this.dia, this.mes, this.anio);
+			fechaFinal = otro;
+		}else {
+			fechaAuxiliar = new Fecha(otro.dia, otro.mes, otro.anio);
+			fechaFinal = this;
+		}
+		
+		int c = 0;
+		while(fechaAuxiliar.Comparar(fechaFinal) != 0) {
+			fechaAuxiliar.diaSiguiente();
+			c++;
+		}
+		return c;
 	}
 
 	//Metodo toString
