@@ -9,7 +9,15 @@ public class Racional {
 		super();
 		this.numerador = numerador;
 		this.denominador = denominador;
+		
+		//simplificar();
 	}
+	
+	/*
+	public void simplificar() {
+		int n = Math.abs(numerador); 
+		int d = Math.abs(denominador);
+	}*/
 	
 	//Sirve para consultar el valor desde otra clase 
 	public int getNumerador() {
@@ -31,6 +39,7 @@ public class Racional {
 		this.denominador = denominador;
 	}
 
+	
 	//Sirve para imprimir el resultado de esta forma a / b
 	public String toString() {
 		return numerador +"/"+ denominador;
