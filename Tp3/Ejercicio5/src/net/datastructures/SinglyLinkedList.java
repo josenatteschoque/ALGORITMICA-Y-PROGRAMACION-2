@@ -160,6 +160,7 @@ public class SinglyLinkedList<E> implements Cloneable {
     return answer;
   }
 
+
   @SuppressWarnings({"unchecked"})
   public boolean equals(Object o) {
     if (o == null) return false;
@@ -220,43 +221,124 @@ public class SinglyLinkedList<E> implements Cloneable {
     return sb.toString();
   }
   
-//5. Agregar a la clase SinglyLinkedList los siguientes métodos:
+  /* Inserta el elemento e en la posicion n de la lista */	
+  //public void addPos(E e, int n) throws IndexOutOfBoundsException Metodo que inserta el elemento en la posicion n
+  public void addPos(E e, int n) throws IndexOutOfBoundsException{
+	  //Muestro estos mensajes de excepciones 
+	  if(n < 0 ) throw new IndexOutOfBoundsException("La posicion no puede ser negativa!");
+	  if(n > size) throw new IndexOutOfBoundsException("La posicion no puede ser mayor al tamaño de la lista");
+	  if(n == 0) {	//En caso de que sea la primer posicion 
+		  addFirst(e);
+		  }	
+	  else if(n == size) {	//En caso de que sea la ultima posicion 
+		  addLast(e);
+	  }else {
+		  Node<E> actual = head;
+		  Node<E> anterior = null;
+		  int c = 0;
+		  while(c < n) {
+			  anterior = actual;
+			  actual = actual.getNext();
+			  c++;
+		  }
+		  Node<E> nuevo = new Node<>(e, actual);	//Creo un nuevo Node
+		 anterior.setNext(nuevo);
+		 size++;
+	  }
+  }
+  //Funciona siuuuu :)
+  
+  /* Elimina el elemento e de la lista 
+  /* Retorna NULL si no lo encuentra */
+  //public E removeElement(E e) Metodo que sirve para eliminar un elemento en la lista
+  public E removeElement(E e) {
+	  	if(isEmpty()) return null;	//si la lista esta vacia retorna null
+	  	Node<E> walk = head;	
+	  	Node<E> anterior = null;  
+	  	
+	  	while(walk != null) {	//Recorre la lista
+	  		if(walk.getElement().equals(e)) {
+	  			
+	  			if(anterior == null) {
+	  				head = walk.getNext();
+	  			}else {
+	  				anterior.setNext(walk.getNext());
+	  			}
+	  			size--;
+	  		}
+	  		anterior = walk;
+	  		walk = walk.getNext();	//Avanza al siguiente elemento
+	  	}
+	  	return null;	//Si no esta el elemento en la lista retorna null
+  }
+  //Funciona siuuuu :)
+  
 
-/* Inserta el elemento e en la posicion n de la lista */	
-public void addPos(E e, int n) throws IndexOutOfBoundsException{
-	
-}
+  /* Elimina elemento que se encuentra en la posicion n de la lista */
+  /* Retorna NULL si no es una posición valida */
+  //public E removePos(int n) throws IndexOutOfBoundsException Metodo que sirve para eliminar un elemento en la posicion n de la lista
+  public E removePos(int n) throws IndexOutOfBoundsException{
+	//Muestro estos mensajes de excepciones 
+	  if(n < 0 ) throw new IndexOutOfBoundsException("La posicion no puede ser negativa!");
+	  if(n > size) throw new IndexOutOfBoundsException("La posicion no puede ser mayor al tamaño de la lista");
+	  if(isEmpty()) return null;
 
-/* Elimina el elemento e de la lista 
-/* Retorna NULL si no lo encuentra */
-public E removeElement(E e) {
-	return null;
-}
+	  Node<E> walk = head;
+	  Node<E> anterior = null;
+	  int c = 0;
+	  
+	  //Recorro la lista hasta encontrar la posicion del elemento a eliminar 
+	  while(c < n) {
+		  anterior = walk;
+		  walk = walk.getNext();
+		  c++;
+	  }
+	  anterior.setNext(walk.getNext());	//Apunto la referencia al siguiente elemento haci eliminando el deseado
+	  return null;	//Si el elemento no esta en la lista retorna null
+  }	
+  //Funciona siuuuuuu :)
 
-/* Elimina elemento que se encuentra en la posicion n de la lista */
-/* Retorna NULL si no es una posición valida */
-public E removePos(int n) throws IndexOutOfBoundsException{
-	return null;
-}
+  
 	
 /* Inserta todos los elementos de la Lista l al final de la lista */
-public void concatenate(SinglyLinkedList<E> l) {
-	
+//public void concatenate(SinglyLinkedList<E> l) Metodo que sirve para insertar todos los elementos de una lista al final de otro lista
+  public void concatenate(SinglyLinkedList<E> lista2) {
+	  //Si la lista esta vacia no modifica lista1 
+	  if(lista2.isEmpty()) {
+		  return;
+	  }
+	  
+	  //Si la lista1 esta vacia, las referencias de la lista1 apuntan a lista2
+	  if(isEmpty()) {
+		  this.head = lista2.head;
+		  this.tail = lista2.tail;
+		  this.size = lista2.size;	
+		  return;
+	  }
+	  
+	  //Apunta las referencias ala siguiente lista
+	  this.tail.setNext(lista2.head);
+	  this.tail = lista2.tail;
+	  this.size += lista2.size; 
+  }
+//Funciona siuuuuu
+  
+  /* Busca el elemento e dentro de la lista */
+  /* Retorna el elemento si lo encuentra o Null si no está en la lista */
+  //public E search(E e) Metodo que sirve para buscar un elemento en la lista
+  public E search(E e) {
+	  if(isEmpty()) return null;	//En caso de que la lista este vacia retorna null
+	  
+	  Node<E> walk = head;	//Creo un nuevo Node que apunte a head 
+	  
+	  while(walk != null) {	//Recorro la lista hasta que termine 
+		  if(walk.getElement().equals(e)) {	//Ve si el elemento actual es igual a e
+			  return walk.getElement();	//Si son iguales retorna el elemento
+		  }
+		  walk = walk.getNext();	//Avanza al siguiente
+	  }
+	  return null;	//Si no lo encontro en la lista retorna null
+  }//Funcionaaaa
+  
+  
 }
-
-/* Busca el elemento e dentro de la lista */
-/* Retorna el elemento si lo encuentra o Null si no está en la lista */
-public E search(E e) {
-    Node<E> walk = head;
-    while (walk != null) {
-     if(walk.getElement().equals(e)) 
-    	 return walk.getElement();	//Retornamos el elemeto 
-      walk = walk.getNext();
-    }
-    
-    return null;
-}
-
-}
-
-
