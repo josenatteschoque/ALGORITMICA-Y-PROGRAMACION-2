@@ -162,10 +162,135 @@ public class CircularlyLinkedList<E> {
     return head.getElement();
   }
 
+  
+  /* Inserta el elemento e en la posicion n de la lista */	
+  //public void addPos(E e, int n) throws IndexOutOfBoundsException
+  public void addPos(E e, int n) throws IndexOutOfBoundsException{
+	  if(n < 0 ) throw new IndexOutOfBoundsException("La posicion no puede ser negativa!");
+	  if(n > size) throw new IndexOutOfBoundsException("La posicion no puede ser mayor al tamaño de la lista");
+	  if(n == 0) {	//En caso de que sea la primer posicion 
+		  addFirst(e);
+	  }else if(n == size) {	//En caso de que sea la ultima posicion 
+		  addLast(e);
+	  }else {
+		  Node<E> actual = tail;
+		  Node<E> anterior = null;
+		  
+		  int c = 0;
+		  //Recorre la lista hasta la posicion solicitada
+		  do {
+			  anterior = actual; 
+			  actual = actual.getNext();	//Apunta al siguiente elemento
+			  c++;
+		  }while(c < n);
+		  
+		  Node<E> nuevo = new Node<>(e,actual);
+		  anterior.setNext(nuevo);
+		  size++;
+	  }
+  }
+  //Funciona siuuu :)
+
+  
+  /* Elimina el elemento e de la lista 
+  /* Retorna NULL si no lo encuentra */
+  //public E removeElement(E e) Metodo que sirve para eliminar un elemento e de la lista
+  public E removeElement(E e) {
+	  if (isEmpty()) return null;	//Retorna null si la lista esta vacia
+	  Node<E> anterior = tail;	//El anterior empieza en la cola
+	  Node<E> nuevo = tail.getNext();	//El nuevo empiza en la cabeza 
+	  
+	  //Recorre la lista
+	  for(int i = 0; i < size; i++) {
+		  if(nuevo.getElement().equals(e)) {	//Encontramos el elemento
+			  if(size == 1) {
+				  //Caso especial en que la lista se queda vacia  
+				  tail = null;
+			  }else {
+				  //El anterior salta hacia al siguiente
+				  anterior.setNext(nuevo.getNext());
+
+				  //Si borramos el node que era la cola ahora la cola es el anterior 
+				  if(nuevo == tail) {
+					  tail = anterior;
+				  }
+			  }
+			  size--;	//Declemento el tamaño de la lista 
+			  return nuevo.getElement();	//Retorno el valor y salimos
+		  }
+		  anterior = nuevo;	//El anterior ahora apunta al siguiente
+		  nuevo = nuevo.getNext();	//Avanza al siguiente elemento de la lista
+	  }
+	  return null;	//Si no esta en la lista retorna null
+  }
+//Funciona siuuu :)
+
+  
+  /* Elimina elemento que se encuentra en la posicion n de la lista */
+  /* Retorna NULL si no es una posición valida */
+  //public E removePos(int n) throws IndexOutOfBoundsException Metodo que sirve para eliminar un elemento de la lista en la posicion n
+  public E removePos(int n) throws IndexOutOfBoundsException{
+	  if(n < 0) throw new IndexOutOfBoundsException("La posicion no debe de ser negativa!");
+	  if(n > size) throw new IndexOutOfBoundsException("La posicion no debe de ser mayor al tamaño de la lista!");
+	  if(n == 0) {
+		  removeFirst();	//Si el elemento a eliminar es el primero uso el metodo removefirst()
+	  }
+	  
+	  if(isEmpty()) return null;
+	  Node<E> anterior = tail;
+	  Node<E> actual = tail.getNext();
+
+	  //Recorre la lista
+	  int c=0;
+	  while(c < n) {
+		anterior = actual;
+		actual = actual.getNext();	//Avanza al siguiente elemento de la lista
+		c++;
+	  }
+	  anterior.setNext(actual.getNext());	//El anterior salta al siguiente haci elimina el elemento 
+	  
+	  //Si justo borramos el último nodo, actualizamos la cola
+	   if (actual == tail) {
+	       tail = anterior;
+	   }
+	  size--;	//Declemento el tamaño de la lista
+	  return null;
+  }
+  //Funciona siuuuu :)
+  
+  
+  /* Inserta todos los elementos de la Lista l al final de la lista */
+  //public void concatenate(CircularlyLinkedList<E> l)
+  public void concatenate(CircularlyLinkedList<E> lista2) {
+	  if(lista2.isEmpty()) return;
+	  
+	  if(isEmpty()) {
+		  this.tail = lista2.tail;
+		  this.size = lista2.size;
+	  }else {
+		  //Guardo las cabezas
+		  Node<E> headA = this.tail.getNext();
+		  Node<E> headB = lista2.tail.getNext();
+		  
+		  //Apunta ala cabeza de la siguiente lista
+		  this.tail.setNext(headB);
+		  
+		  //El final de la lista ahora apunta ala cola de la lista principal
+		  lista2.tail.setNext(headA);
+		  
+		  //El nuevo 'tail' de la lista total es el tail de la lista2
+		  this.tail = lista2.tail;
+		  
+		  //Sumamos los tamaños de las listas
+		  this.size += lista2.size;
+	  }
+  }
+  //Funciona siuuu :)
+  
+  
   /* Busca el elemento e dentro de la lista */
   /* Retorna el elemento si lo encuentra o Null si no está en la lista */
   //public E search(E e) Metodo que sirve para buscar un elemento en la lista
-  
   public E search(E e) {
 	  
 	  Node<E> walk = tail; 
