@@ -206,14 +206,111 @@ public class DoublyLinkedList<E> {
     return node.getElement();
   }
 
+  /* Inserta el elemento e en la posicion n de la lista */	
+  //public void addPos(E e, int n) throws IndexOutOfBoundsException Metodo que sirve para insertar un elemento en la posicion n en la lista
+public void addPos(E e, int n) throws IndexOutOfBoundsException {
+	if(n < 0) throw new IndexOutOfBoundsException("La posicion no puede ser negativa");
+	if(n > size) throw new IndexOutOfBoundsException("La posicion no puede ser mayor al tamaño de la lista");
+	if(n == 0) {
+		addFirst(e);	//En caso de que sea el primer elemento
+	}else if(n == size) {
+		addLast(e);	//En caso de sea el ultimo elemento 
+	}else {
+		Node<E> sucesor = header.getNext();
+		
+		int c = 0;
+		//Recorro la lista
+		while(c < n) {
+			sucesor = sucesor.getNext();
+			c++;
+		}
+		
+		Node<E> predecesor = sucesor.getPrev();
+		addBetween(e, predecesor, sucesor);	//Sirve para poner en el medio un nuevo Node entre Prev y next
+		size++;
+	}
+	
+}
+//Funciona siuuuu :)
+
+/* Elimina el elemento e de la lista 
+/* Retorna NULL si no lo encuentra */
+//public E removeElement(E e) Metodo que sirve para eliminar un elemento de la lista
+public E removeElement(E e) {
+	if(isEmpty()) return null;	//Retorna null si la lista esta vacia
+	Node<E> sucesor = header.getNext();
+	
+	while(sucesor != trailer) {
+		if(sucesor.getElement().equals(e)) {
+			remove(sucesor);	//Uso el metodo remove() para eliminar
+		}
+		sucesor = sucesor.getNext();	//Avanza al siguiente elemento de la lista
+	}
+	return null;	//Retorna null si no lo encuntra
+}
+//Funciona siuuuuu :)
+
+
+/* Elimina elemento que se encuentra en la posicion n de la lista */
+/* Retorna NULL si no es una posición valida */
+//public E removePos(int n) throws IndexOutOfBoundsException
+public E removePos(int n) throws IndexOutOfBoundsException{
+	if(n < 0 ) throw new IndexOutOfBoundsException("La posicion debe ser mayor a cero!");
+	if(n > size) throw new IndexOutOfBoundsException("La posicion no debe de ser mayor al tamaño de la lista!");
+	Node<E> sucesor = header.getNext();
+	
+	int c = 0;
+	//Recorro la lista
+	while(c < n) {
+		sucesor = sucesor.getNext();	//Avanza al siguiente elemento de la lista
+		c++;
+	}
+	remove(sucesor);	//Uso el metodo remove() para eliminar el elemento	
+	
+	return null;
+}
+//Funciona siuuuu :)
+
+
+/* Inserta todos los elementos de la Lista l al final de la lista */
+//public void concatenate(DoublyLinkedList<E> l) Metodo que sirve para insertar todos los elementos de una lista a ala otra al final
+public void concatenate(DoublyLinkedList<E> lista2) {
+	if(lista2.isEmpty()) {
+		return;
+	}
+	
+	//Si la lista1 esta vacia, las referencias de la lista1 apuntan a lista2
+	if(isEmpty()) {
+		this.header = lista2.header;
+		this.trailer = lista2.trailer;
+		this.size = lista2.size;
+		return;
+	}
+	
+	//Apuntan la referencias ala siguiente lista
+	this.trailer.getPrev().setNext(lista2.header.getNext());
+	this.trailer = lista2.trailer;
+	this.size += lista2.size;
+	
+}
+//Funciona
+
+  
   /* Busca el elemento e dentro de la lista */
   /* Retorna el elemento si lo encuentra o Null si no está en la lista */
   //public E search(E e) Metodo que sirve para buscar en una  lista
-  
   public E search(E e) {
-	  return null;
+	  Node<E> walk = header.getNext();
+	  	//Recorro la lista
+	    while (walk != trailer) {    
+	    	if(walk.getElement().equals(e)) { 
+	    		return walk.getElement();	//Retorna el elemento buscado
+	    	}
+	      walk = walk.getNext();	//Avanza al siguiente elemento de la lista 
+	    }
+	    return null;	//Si no encuentro el elemento en la lista retorna null
   }
-
+//Funciona
   
   
   /**
