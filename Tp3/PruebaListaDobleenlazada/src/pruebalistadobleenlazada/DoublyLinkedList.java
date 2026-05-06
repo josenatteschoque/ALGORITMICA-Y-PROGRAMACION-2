@@ -22,6 +22,7 @@
  */
 package pruebalistadobleenlazada;
 
+
 /**
  * A basic doubly linked list implementation.
  *
@@ -205,6 +206,210 @@ public class DoublyLinkedList<E> {
     size--;
     return node.getElement();
   }
+
+  /* Inserta el elemento e en la posicion n de la lista */	
+  //public void addPos(E e, int n) throws IndexOutOfBoundsException Metodo que sirve para insertar un elemento en la posicion n en la lista
+public void addPos(E e, int n) throws IndexOutOfBoundsException {
+	if(n < 0) throw new IndexOutOfBoundsException("La posicion no puede ser negativa");
+	if(n > size) throw new IndexOutOfBoundsException("La posicion no puede ser mayor al tamaño de la lista");
+	if(n == 0) {
+		addFirst(e);	//En caso de que sea el primer elemento
+	}else if(n == size) {
+		addLast(e);	//En caso de sea el ultimo elemento 
+	}else {
+		Node<E> sucesor = header.getNext();
+		
+		int c = 0;
+		//Recorro la lista
+		while(c < n) {
+			sucesor = sucesor.getNext();
+			c++;
+		}
+		
+		Node<E> predecesor = sucesor.getPrev();
+		addBetween(e, predecesor, sucesor);	//Sirve para poner en el medio un nuevo Node entre Prev y next
+		size++;
+	}
+	
+}
+//Funciona siuuuu :)
+
+/* Elimina el elemento e de la lista 
+/* Retorna NULL si no lo encuentra */
+//public E removeElement(E e) Metodo que sirve para eliminar un elemento de la lista
+public E removeElement(E e) {
+	if(isEmpty()) return null;	//Retorna null si la lista esta vacia
+	Node<E> sucesor = header.getNext();
+	
+	while(sucesor != trailer) {
+		if(sucesor.getElement().equals(e)) {
+			remove(sucesor);	//Uso el metodo remove() para eliminar
+		}
+		sucesor = sucesor.getNext();	//Avanza al siguiente elemento de la lista
+	}
+	return null;	//Retorna null si no lo encuntra
+}
+//Funciona siuuuuu :)
+
+
+/* Elimina elemento que se encuentra en la posicion n de la lista */
+/* Retorna NULL si no es una posición valida */
+//public E removePos(int n) throws IndexOutOfBoundsException
+public E removePos(int n) throws IndexOutOfBoundsException{
+	if(n < 0 ) throw new IndexOutOfBoundsException("La posicion debe ser mayor a cero!");
+	if(n > size) throw new IndexOutOfBoundsException("La posicion no debe de ser mayor al tamaño de la lista!");
+	Node<E> sucesor = header.getNext();
+	
+	int c = 0;
+	//Recorro la lista
+	while(c < n) {
+		sucesor = sucesor.getNext();	//Avanza al siguiente elemento de la lista
+		c++;
+	}
+	remove(sucesor);	//Uso el metodo remove() para eliminar el elemento	
+	
+	return null;
+}
+//Funciona siuuuu :)
+
+
+/* Inserta todos los elementos de la Lista l al final de la lista */
+//public void concatenate(DoublyLinkedList<E> l) Metodo que sirve para insertar todos los elementos de una lista a ala otra al final
+public void concatenate(DoublyLinkedList<E> lista2) {
+	if(lista2.isEmpty()) {
+		return;
+	}
+	
+	//Si la lista1 esta vacia, las referencias de la lista1 apuntan a lista2
+	if(isEmpty()) {
+		this.header = lista2.header;
+		this.trailer = lista2.trailer;
+		this.size = lista2.size;
+		return;
+	}
+	
+	//Apuntan la referencias ala siguiente lista
+	this.trailer.getPrev().setNext(lista2.header.getNext());
+	this.trailer = lista2.trailer;
+	this.size += lista2.size;
+	
+}
+//Funciona
+
+  
+  /* Busca el elemento e dentro de la lista */
+  /* Retorna el elemento si lo encuentra o Null si no está en la lista */
+  //public E search(E e) Metodo que sirve para buscar en una  lista
+  public E search(E e) {
+	  Node<E> walk = header.getNext();
+	  	//Recorro la lista
+	    while (walk != trailer) {    
+	    	if(walk.getElement().equals(e)) { 
+	    		return walk.getElement();	//Retorna el elemento buscado
+	    	}
+	      walk = walk.getNext();	//Avanza al siguiente elemento de la lista 
+	    }
+	    return null;	//Si no encuentro el elemento en la lista retorna null
+  }
+//Funciona
+ 
+  public boolean equals(Object o) {
+	    if (o == null) return false;
+	    if (getClass() != o.getClass()) return false;
+	    DoublyLinkedList<E> other = (DoublyLinkedList<E>) o;   // use nonparameterized type
+	    if (size != other.size) return false;
+	    Node walkA = header.getNext();                               // traverse the primary list
+	    Node walkB = other.header.getNext();                         // traverse the secondary list
+	    while (walkA != trailer) {
+	      if (!walkA.getElement().equals(walkB.getElement())) return false; //mismatch
+	      walkA = walkA.getNext();
+	      walkB = walkB.getNext();
+	    }
+	    return true;   // if we reach this, everything matched successfully
+	  }
+ //Funciona siuuuu :)
+  
+  /**
+	 * Retorna una nueva lista con los n elementos comenzado desde la derecha
+	 * 
+	 * Por ejemplo:
+	 * 
+	 * Dada la lista {A, B, C, D}
+	 * 
+	 * right(4) retorna la lista {A, B, C, D}
+	 * 
+	 * right(3) retorna la lista {B, C, D}
+	 * 
+	 * right(2) retorna la lista {C, D}
+	 * 
+	 * right(1) retorna la lista {D}
+	 * 
+	 * right(0) retorna la lista {}
+	 * 
+	 * right(5) lanza la excepción IndexOutOfBoundsException
+	 * 
+	 * right(-1) lanza la excepción IndexOutOfBoundsException
+	 * 
+	 * 
+	 * @param n: número de elementos a retornar comenzando desde la derecha
+	 * @return nueva lista con los elementos de la derecha de la lista original
+	 * @throws IndexOutOfBoundsException n: supera el tamaño de la lista o es negativo
+	 */
+	public DoublyLinkedList<E> right(int n) throws IndexOutOfBoundsException{
+		//Mensaja de excepcion
+		if(n < 0 || n > size) throw new IndexOutOfBoundsException("N supera el tamaño el tamaño de la lista o es negativo!");
+		DoublyLinkedList<E> nuevalista = new DoublyLinkedList<>();
+		if(n == 0) return nuevalista;
+		int saltos = size - n;
+		Node<E> walk = header.getNext();
+
+		//Avanza hasta la posicion necesaria
+		for(int i = 0; i < saltos; i++) {
+			walk = walk.getNext();
+		}
+		
+		//Agrega los elementos en al nueva lista
+		while(walk != trailer) {
+			nuevalista.addLast(walk.getElement());
+			walk = walk.getNext();
+		}
+		//Retorna la nueva lista
+		return nuevalista;
+	}
+//Funciona siuuuuuuu :)
+	
+	/**
+	 * Elimina todos los elementos que están en una posición impar. 
+	 * Retorna una lista con los elementos eliminados
+	 *
+	 * Por ejemplo:
+	 *
+	 * {A, B, C, D} => {A, C} retorna la lista {B, D}
+	 *
+	 * {A, B, C} => {A, C} retorna la lista {B}
+	 *
+	 * {A, B} => {A} retorna la lista {B}
+	 * 
+	 * {A} => {A} retorna la lista {} 
+	 * 
+	 * {} => {} retorna la lista {} 
+	 */
+	public DoublyLinkedList<E> removeOdd(){
+		DoublyLinkedList<E> removeList = new DoublyLinkedList<>();	//Lista donde estaran los elementos de posiciones impares
+	
+		Node<E> walk = header.getNext();
+		
+		while(walk != trailer) {
+			
+			Node<E> siguiente = walk.getNext();
+			
+			removeList.addLast(siguiente.getElement());	//Agrego el elemento en la nueva lista
+			
+			walk = siguiente.getNext().getNext();	//Salto al siguiente elemento
+		}
+		return removeList;	//Retorna la lista de elementos eliminados
+	}
+//Funciona :)
 
   /**
    * Produces a string representation of the contents of the list.
