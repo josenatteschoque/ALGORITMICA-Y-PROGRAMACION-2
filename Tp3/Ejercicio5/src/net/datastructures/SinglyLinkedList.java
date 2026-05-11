@@ -341,4 +341,225 @@ public class SinglyLinkedList<E> implements Cloneable {
   }//Funcionaaaa
   
   
+  //public void addCombineAfter(SinglyLinkedList<E> l) Metodo que sirve para para combinar una lista con otro de forma cruzada osea lista1 ={a,b,c} y lista2 = {1,2,3}
+  //seria {a1,b2,c3}
+  public void addCombineAfter(SinglyLinkedList<E> l) {
+	  if(l.isEmpty()) return;
+	  
+	  //Si la lista original esta vacia tomamos toda la lista l
+	  if(this.isEmpty()) {
+		  this.head = l.head;
+		  this.tail = l.tail;
+		  this.size = l.size;
+		  return;
+	  }
+	  
+	  
+	  Node<E> c1 = this.head;
+	  Node<E> c2 = l.head;
+	  
+	  while(c1 != null && c2 != null) {
+		  
+		  Node<E> siguiente1 = c1.getNext();
+		  Node<E> siguiente2 = c2.getNext();
+		  
+		  c1.setNext(c2);
+		  
+		  if(siguiente1 == null) {
+			  this.tail = l.tail;
+			  break;
+		  }
+		  
+		  c2.setNext(siguiente1);
+		  
+		  //Avanzo los punteros
+		  c1 = siguiente1;
+		  c2 = siguiente2;
+	  }
+	  this.size += l.size;
+  }
+ //Funciona siuuu :)
+  
+  
+//public void addCombineBefore(SinglyLinkedList<E> l) Metodo que sirve para
+	// combinar una lista con otra pero antes de primer elemento ejemplo lista1 =
+	// {a,b,c} y lista2 = {x,y,z}
+	// {xa, yb, zc}
+	public void addCombineBefore(SinglyLinkedList<E> l) {
+		 if(l.isEmpty()) return;
+		  
+		  //Si la lista original esta vacia tomamos toda la lista l
+		  if(this.isEmpty()) {
+			  this.head = l.head;
+			  this.tail = l.tail;
+			  this.size = l.size;
+			  return;
+		  }
+		  
+		  Node<E> c2 = l.head;
+		  Node<E> c1 = this.head;
+		  
+		  this.head = c2;
+		  
+		  while(c1 != null && c2 != null) {
+			  Node<E> next2 = c2.getNext();
+			  Node<E> next1 = c1.getNext();
+			  
+			  c2.setNext(c1);
+			  
+			  if(next2 == null) {
+				  break;
+			  }
+			  
+			  if(next1 == null) {
+				  c1.setNext(next2);
+				  this.tail = l.tail;
+				  break;
+			  }
+			  
+			  c1.setNext(next2);
+			  
+			  c2 = next2;
+			  c1 = next1;
+		  }
+		  this.size += l.size;
+	}
+//Funciona siuu :)
+	
+	
+	/**
+	 * Elimina todos los elementos que están en una posición impar. 
+	 * Retorna una lista con los elementos eliminados
+	 *
+	 * Por ejemplo:
+	 *
+	 * {A, B, C, D} => {A, C} retorna la lista {B, D}
+	 *
+	 * {A, B, C} => {A, C} retorna la lista {B}
+	 *
+	 * {A, B} => {A} retorna la lista {B}
+	 * 
+	 * {A} => {A} retorna la lista {} 
+	 * 
+	 * {} => {} retorna la lista {} 
+	 */
+	public SinglyLinkedList<E> removeOdd(){
+		SinglyLinkedList<E> removeList = new SinglyLinkedList<>();	//Lista donde estaran los elementos de posiciones impares
+		
+		if(head == null || head.getNext() == null) {
+			return  removeList;	//Si la lista esta vacia o solo tiene un elemento 
+		}
+		
+		Node<E> walk = head;
+		while(walk != null) {
+			
+			Node<E>siguiente = walk.getNext();
+			
+			removeList.addLast(siguiente.getElement());	//Agrego el elemento en la nueva lista
+			
+			walk.setNext(siguiente.getNext());	//Salto al siguiente elemento
+		
+			if(walk.getNext() == null) {	//actualizo el tail
+				tail = walk;
+			}
+			size--;	//Declementa el tamaño de la lista	
+			walk = walk.getNext();	//Avanza al siguiente elemento
+		}
+		return removeList;	//Retorna la lista de elementos eliminados
+	}
+//Funciona siuuu :)
+	
+	/**
+	 * Retorna una nueva lista con los n elementos comenzado desde la derecha
+	 * 
+	 * Por ejemplo:
+	 * 
+	 * Dada la lista {A, B, C, D}
+	 * 
+	 * right(4) retorna la lista {A, B, C, D}
+	 * 
+	 * right(3) retorna la lista {B, C, D}
+	 * 
+	 * right(2) retorna la lista {C, D}
+	 * 
+	 * right(1) retorna la lista {D}
+	 * 
+	 * right(0) retorna la lista {}
+	 * 
+	 * right(5) lanza la excepción IndexOutOfBoundsException
+	 * 
+	 * right(-1) lanza la excepción IndexOutOfBoundsException
+	 * 
+	 * 
+	 * @param n: número de elementos a retornar comenzando desde la derecha
+	 * @return nueva lista con los elementos de la derecha de la lista original
+	 * @throws IndexOutOfBoundsException n: supera el tamaño de la lista o es negativo
+	 */
+	public SinglyLinkedList<E> right(int n) throws IndexOutOfBoundsException{
+		//Mensaja de excepcion
+		if(n < 0 || n > size) throw new IndexOutOfBoundsException("N supera el tamaño el tamaño de la lista o es negativo!");
+		SinglyLinkedList<E> nuevalista = new SinglyLinkedList<>();
+		if(n == 0) return nuevalista;
+		int saltos = size - n;
+		Node<E> walk = head;
+
+		//Avanza hasta la posicion necesaria
+		for(int i = 0; i < saltos; i++) {
+			walk = walk.getNext();
+		}
+		
+		//Agrega los elementos en al nueva lista
+		while(walk != null) {
+			nuevalista.addLast(walk.getElement());
+			walk = walk.getNext();
+		}
+		//Retorna la nueva lista
+		return nuevalista;
+	}
+
+	// Retorna true si la lista contiene un elemento duplicado
+	public boolean containsDuplicate() {
+		  if(isEmpty()) return false;	//En caso de que la lista este vacia retorna null
+		  
+		  Node<E> actual = head;	//Creo un nuevo Node que apunte a head 
+		  
+		  while(actual != null) {	//Recorro la lista hasta que termine 
+			  Node<E> siguiente = actual.getNext();
+			  
+			  //Comparo el elemento actual con los demas
+			  while(siguiente != null) {
+				  if(actual.getElement().equals(siguiente.getElement())) {
+					  return true;	//Retorna true si encontro un elemento duplicado
+				  }
+				  siguiente = siguiente.getNext();	//Avanzo al siguiente elemento
+			  }
+			  
+			  actual = actual.getNext();	//Avanza al siguiente
+		  }
+		  return false;	//Si no hay duplicados en la lista retorna false
+	  }//Funcionaa
+	
+	// Retorna el índice de la última ocurrencia de un elemento especificado
+	// en la lista o -1 si la lista no contiene el elemento
+	public int lastIndexOf(E e) {
+		if(isEmpty()) return -1;	//La lista esta vacia
+		
+		Node<E> actual = head;
+		int index = 0;
+		int lastindex = -1;
+		
+		//Recorre la lista
+		while(actual != null) {
+			if(actual.getElement().equals(e)) {
+				lastindex = index;	//Actualizamos el indice
+			}
+			
+			actual = actual.getNext();	//Avanza al siguiente elemento
+			index++;	//Incrementamos el indice
+			
+		}
+		return lastindex;	//Retornamos el indice
+	}//Funcionaaaaa
+
+
 }
