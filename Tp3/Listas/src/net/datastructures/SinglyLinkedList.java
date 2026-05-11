@@ -517,5 +517,49 @@ public class SinglyLinkedList<E> implements Cloneable {
 		return nuevalista;
 	}
 
+	// Retorna true si la lista contiene un elemento duplicado
+	public boolean containsDuplicate() {
+		  if(isEmpty()) return false;	//En caso de que la lista este vacia retorna null
+		  
+		  Node<E> actual = head;	//Creo un nuevo Node que apunte a head 
+		  
+		  while(actual != null) {	//Recorro la lista hasta que termine 
+			  Node<E> siguiente = actual.getNext();
+			  
+			  //Comparo el elemento actual con los demas
+			  while(siguiente != null) {
+				  if(actual.getElement().equals(siguiente.getElement())) {
+					  return true;	//Retorna true si encontro un elemento duplicado
+				  }
+				  siguiente = siguiente.getNext();	//Avanzo al siguiente elemento
+			  }
+			  
+			  actual = actual.getNext();	//Avanza al siguiente
+		  }
+		  return false;	//Si no hay duplicados en la lista retorna false
+	  }//Funcionaa
+	
+	// Retorna el índice de la última ocurrencia de un elemento especificado
+	// en la lista o -1 si la lista no contiene el elemento
+	public int lastIndexOf(E e) {
+		if(isEmpty()) return -1;	//La lista esta vacia
+		
+		Node<E> actual = head;
+		int index = 0;
+		int lastindex = -1;
+		
+		//Recorre la lista
+		while(actual != null) {
+			if(actual.getElement().equals(e)) {
+				lastindex = index;	//Actualizamos el indice
+			}
+			
+			actual = actual.getNext();	//Avanza al siguiente elemento
+			index++;	//Incrementamos el indice
+			
+		}
+		return lastindex;	//Retornamos el indice
+	}//Funcionaaaaa
+
 
 }
