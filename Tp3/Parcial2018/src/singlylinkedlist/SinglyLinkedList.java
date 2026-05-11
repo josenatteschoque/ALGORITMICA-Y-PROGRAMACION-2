@@ -559,9 +559,7 @@ public class SinglyLinkedList<E> implements Cloneable {
 			
 		}
 		return lastindex;	//Retornamos el indice
-	}
+	}//Funcionaaaaa
 
-	
-	
 
 }
