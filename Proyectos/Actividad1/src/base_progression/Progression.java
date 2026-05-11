@@ -1,27 +1,22 @@
-package progressiones.base;
+package base_progression;
 
-public abstract class Progression {
+public abstract class  Progression {
 	
+	//Instancia de variable
 	protected long current;
+	
+	//Constructor Progression que inicializa en cero
+	public Progression() { this(0); }
 
-
+	//Constructor
 	public Progression(long start) { current = start; }
 	
-	
+	//Retorna el siguente valor de Progression
 	public long nextValue() {
 		long answer = current;
 		advance();
 		return answer;
 	}
 	
-	//Metodo abstracto: Cada hijo debe decir como avazar
 	protected abstract void advance();
-	
-	public void printProgression(int n) {
-		System.out.print(nextValue());
-		for(int j = 1;j < n;j++) 
-			System.out.print(" " + nextValue());
-		System.out.println();
-	}
-	
 }
