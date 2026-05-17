@@ -8,8 +8,17 @@
 
 package dsaj.recursion;
 
+import java.util.Scanner;
+
 public class TestFactorial {
 	public static void main(String[] args) {
+		Scanner teclado = new Scanner(System.in);
+		
+		int num = 0;
+		System.out.println("Ingrese un numero: ");
+		num = teclado.nextInt();
+		
+		System.out.println("El factorial de "+num+" es: "+Factorial.factorial(num));
 		
 	}
 }
