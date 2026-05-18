@@ -16,7 +16,21 @@ public class FibonacciRecursiva {
 		return FibonacciRecursiva(n - 1) + FibonacciRecursiva(n - 2);
 	}
 
-	/*
+	// Método público que el usuario llama
+	public static long FibonacciUnaLlamada(int n) {
+	    if (n == 0) return 0;
+	    if (n == 1) return 1;
+	    return FibonacciAux(n, 1, 0);
+	}
+
+	// Método auxiliar con UNA única llamada recursiva
+	private static long FibonacciAux(int n, long actual, long anterior) {
+	    if (n == 1) return actual;
+	    return FibonacciAux(n - 1, actual + anterior, actual);
+	}
+	
+	
+	/*	Todo esto esta bien pero esta mal no cumple lo que la consigna pide.
 	 * Fórmula de Binet (la cuenta directa) Esta fórmula usa el número áureo (phi,
 	 * que es aproximadamente 1.618) y la raíz cuadrada de 5.
 	 * 
@@ -27,8 +41,7 @@ public class FibonacciRecursiva {
 	 * φ (phi) = (1 + √5) / 2 ≈ 1.618034
 	 * 
 	 * ψ (psi) = (1 - √5) / 2 ≈ -0.618034
-	 */
-	
+	 
 	public static long FibonacciOptimizado(int n) {
 		//Calcula la raiza de 5
 		double raiz5 = Math.sqrt(5);
@@ -44,5 +57,6 @@ public class FibonacciRecursiva {
 		return Math.round(resul);
 		
 		//Tuve que usar IA ya que no podia hacer las cuentas...
-	}
+	}*/
+	
 }

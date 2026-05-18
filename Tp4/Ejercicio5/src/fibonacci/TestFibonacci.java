@@ -20,11 +20,11 @@ public class TestFibonacci {
 		// Tomo el tiempo de inicio
 		long inicio1 = System.nanoTime();
 		// Llamo al Metodo Recursivo Optimizado
-		long resul1 = FibonacciRecursiva.FibonacciOptimizado(6);
+		long resul1 = FibonacciRecursiva.FibonacciUnaLlamada(6);
 		// Tomo el tiempo final
 		long fin1 = System.nanoTime();
 
-		System.out.println("Fibonacci de 6 = " + resul1);
+		System.out.println("Fibonacci  Optimizada de 6 = " + resul1);
 		System.out.println("Tiempo: " + (fin1 - inicio1) + "ns");
 		
 		
