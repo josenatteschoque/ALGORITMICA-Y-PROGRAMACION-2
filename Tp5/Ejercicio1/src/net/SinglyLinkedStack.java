@@ -1,5 +1,6 @@
 package net;
 
+
 public class SinglyLinkedStack<E> implements Stack<E> {
 	
 	//Creo una instancia de una lista simplemente enlazada 
@@ -38,3 +39,4 @@ public class SinglyLinkedStack<E> implements Stack<E> {
 		return list.toString();
 	}
 }
+
