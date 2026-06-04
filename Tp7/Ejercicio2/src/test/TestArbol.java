@@ -14,8 +14,10 @@ import stack.Stack;
 public class TestArbol {
 	public static void main(String[] args) {
 		LinkedBinaryTree<String> tree = new LinkedBinaryTree<>();
-		Stack<String> operandos = new SinglyLinkedStack<String>();
-		Stack<String> resultado = new SinglyLinkedStack<String>();
+		
+		Stack<Double> pilacalculo = new SinglyLinkedStack<Double>();
+		
+		String[] postOrden  = new String[19];
 		
 		/*
 		 * RAIZ 0 = X
@@ -60,16 +62,18 @@ public class TestArbol {
 		
 		// PostOrden IDR = izquierda, derecha, raiz
 		//{5, 2, +, 2, 1, -, *, 2, 9, +, 7, 2, -, 1, -, +, /, 8, *} 
+		int i=0;
 		for (Position<String> r : tree.postorder()) {
-			//Cargo los elementos en una pila
-			operandos.push(r.getElement());
-			System.out.println("Postorden: " + r.getElement());
+			//Cargo los elementos en un arreglo
+			postOrden[i] = r.getElement();
+			System.out.println(postOrden[i]);
+			i++;
+			//System.out.println("Postorden: " + r.getElement());
 		}
 		
-		System.out.println(operandos);
-		for(Position<String> j : tree.postorder()) {
-			
+		for(int j = 0; j < postOrden.length; j++) {
+			//Falta
 		}
-
+		
 	}
 }
