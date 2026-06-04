@@ -2,10 +2,8 @@
  * “(((5+2) ∗ (2−1))/((2+9)+((7−2)−1)) ∗8)”. 
  * Recorrer el árbol en postorder para obtener la notación postfija del mismo. 
  * Calcular el resultado de la expresión utilizando una pila (apilar los operando,
- *  cuando llega un operador desapilar los operando, realizar el cálculo y apilar el mismo)
-*/
+ *  cuando llega un operador desapilar los operando, realizar el cálculo y apilar el mismo)*/
 package test;
-
 import net.datastructures.LinkedBinaryTree;
 import net.datastructures.Position;
 import stack.SinglyLinkedStack;
@@ -14,10 +12,7 @@ import stack.Stack;
 public class TestArbol {
 	public static void main(String[] args) {
 		LinkedBinaryTree<String> tree = new LinkedBinaryTree<>();
-		
 		Stack<Double> pilacalculo = new SinglyLinkedStack<Double>();
-		
-		
 		/*
 		 * RAIZ 0 = X
 		 * NODO1 = /
@@ -61,14 +56,39 @@ public class TestArbol {
 		
 		// PostOrden IDR = izquierda, derecha, raiz
 		//{5, 2, +, 2, 1, -, *, 2, 9, +, 7, 2, -, 1, -, +, /, 8, *} 
+		//Realizo la operacio apilando y desapilando
 		for (Position<String> r : tree.postorder()) {
 			String element = r.getElement();
 			
-			//Es operador
+			//El elemento es operador
 			if(element.equals("+") || element.equals("-") || element.equals("*") || element.equals("/")) {
+				double resul = 0;
+				//Como es una pila la operacio esta invertida por eso opero de esa forma!	
+				double Derecha = pilacalculo.pop(); //Derecha
+				double Izquierda = pilacalculo.pop(); //Izquierda
+				//Aqui me fijo que operador es y que operacion debo de hacer
+				switch(element) {
+					case "+":
+						resul = Izquierda + Derecha;
+						break;
+					case "-":
+						resul= Izquierda - Derecha;
+						break;
+					case "*":
+						resul = Izquierda * Derecha;
+						break;
+						
+					case "/":
+						if(Derecha == 0) {
+							 throw new ArithmeticException("ERROR: No se puede dividir por cero pendejo");
+						}
+						resul = Izquierda / Derecha;
+						break;
+				}
+				//Apilo el resultado
+				pilacalculo.push(resul);
 				
-				
-			//Es numero
+			//El elemento es un numero
 			}else {
 				//Transforma un String en un Double
 				Double num = Double.parseDouble(element);
@@ -76,8 +96,9 @@ public class TestArbol {
 				//Apilo los numeros
 				pilacalculo.push(num);
 			}
-		//System.out.println("Postorden: " + r.getElement());
 		}
-		
+		System.out.println("(((5+2) ∗ (2−1))/((2+9)+((7−2)−1)) ∗8)= "+ pilacalculo);
 	}
 }
+
+//Full logica perrooo!!
