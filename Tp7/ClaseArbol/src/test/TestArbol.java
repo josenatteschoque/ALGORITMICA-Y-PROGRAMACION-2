@@ -46,6 +46,15 @@ public class TestArbol {
 		}
 		System.out.println();
 
+		
+		//Seguimos probando metodos
+		System.out.println("Profundidad: "+t.depth(p));
+		
+		System.out.println("Altura: "+t.height(p));
+		
+		System.out.println("Tamaño: "+t.size());
+		
+
 	}
 
 }
