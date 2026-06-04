@@ -17,7 +17,6 @@ public class TestArbol {
 		
 		Stack<Double> pilacalculo = new SinglyLinkedStack<Double>();
 		
-		String[] postOrden  = new String[19];
 		
 		/*
 		 * RAIZ 0 = X
@@ -62,17 +61,22 @@ public class TestArbol {
 		
 		// PostOrden IDR = izquierda, derecha, raiz
 		//{5, 2, +, 2, 1, -, *, 2, 9, +, 7, 2, -, 1, -, +, /, 8, *} 
-		int i=0;
 		for (Position<String> r : tree.postorder()) {
-			//Cargo los elementos en un arreglo
-			postOrden[i] = r.getElement();
-			System.out.println(postOrden[i]);
-			i++;
-			//System.out.println("Postorden: " + r.getElement());
-		}
-		
-		for(int j = 0; j < postOrden.length; j++) {
-			//Falta
+			String element = r.getElement();
+			
+			//Es operador
+			if(element.equals("+") || element.equals("-") || element.equals("*") || element.equals("/")) {
+				
+				
+			//Es numero
+			}else {
+				//Transforma un String en un Double
+				Double num = Double.parseDouble(element);
+				System.out.println(num);
+				//Apilo los numeros
+				pilacalculo.push(num);
+			}
+		//System.out.println("Postorden: " + r.getElement());
 		}
 		
 	}
