@@ -1,9 +1,24 @@
+/*2. Implementar el TAD Stack usando un ArrayList para almacenar sus elementos.*/
+
 package test;
+import net.datastructure.ArrayListStack;
+import net.datastructure.Stack;
 
 public class TestArrayListStack {
-
 	public static void main(String[] args) {
+		Stack<String> pila = new ArrayListStack<String>();
 		
+		pila.push("Juan");
+		pila.push("Ana");
+		pila.push("Jose");
+		pila.push("Leo");
+		
+		System.out.println(pila);
+		pila.pop();
+		System.out.println(pila);
+		System.out.println(pila.top());
+		System.out.println(pila.isEmpty());
+		System.out.println("Tamaño: "+pila.size());
 	}
 
 }
