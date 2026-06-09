@@ -22,30 +22,27 @@
  */
 package map;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
-
-import net.datastructures.ChainHashMap;
 import net.datastructures.Entry;
 import net.datastructures.Map;
+import net.datastructures.ChainHashMap;
 
 /** A program that counts words in a document, printing the most frequent. */
 public class WordCount {
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) {
 	  //Creo un arreglo de strings
 	 String array[] = {"for", "while", "int", "if", "else"};
 	 
     boolean VERBOSE = (args.length > 0);
     Map<String,Integer> freq = new ChainHashMap<>();  // or any concrete map
     
-    //Cargo el mapa con los elementos del arreglo
     for(int i = 0; i < array.length; i++) {
 		freq.put(array[i], 0);
 	 }
-    // scan input for words, using all nonletters as delimiters
-    Scanner doc = new Scanner(new File("WordCount.java")).useDelimiter("[^a-zA-Z]+");
     
+    // scan input for words, using all nonletters as delimiters
+    Scanner doc = new Scanner("WordCount.java").useDelimiter("[^a-zA-Z]+");
     while (doc.hasNext()) {
       String word = doc.next();   
       Integer count = freq.get(word);                  // get the previous count for this word
