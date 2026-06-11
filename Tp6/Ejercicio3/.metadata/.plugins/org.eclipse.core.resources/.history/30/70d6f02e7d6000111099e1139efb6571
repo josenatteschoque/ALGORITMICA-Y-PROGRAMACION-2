@@ -1,0 +1,33 @@
+package net.datastructure;
+
+public class ArrayListStack<E> implements Stack<E> {
+	private ArrayList<E> lista = new ArrayList<>();
+	
+	@Override
+	public int size() {
+		return lista.size();
+		}
+
+	@Override
+	public boolean isEmpty() {
+		return lista.isEmpty();
+	}
+
+	@Override
+	public void push(E e) {
+		lista.add(0, e);
+	}
+
+	@Override
+	public E top() {
+		
+		return null;
+	}
+
+	@Override
+	public E pop() {
+
+		return null;
+	}
+	
+}

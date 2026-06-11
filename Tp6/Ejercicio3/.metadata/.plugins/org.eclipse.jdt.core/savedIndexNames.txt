@@ -1,0 +1,6 @@
+INDEX VERSION 1.134+C:\Users\amend\Desktop\Algoritmica y Programacion 2\Ejercicios\Tp6\.metadata\.plugins\org.eclipse.jdt.core
+2179537226.index
+1288848795.index
+358920302.index
+1865797976.index
+2298930795.index

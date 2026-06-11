@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="net.datastructures.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="net.datastructures.LinkedPositionalList"/>
+    <fullyQualifiedTypeName name="net.datastructures.Position"/>
+    <fullyQualifiedTypeName name="net.datastructure.ArrayListStack"/>
+    <fullyQualifiedTypeName name="net.datastructure.Stack"/>
+    <fullyQualifiedTypeName name="net.datastructure.List"/>
+    <fullyQualifiedTypeName name="net.datastructure.ArrayList"/>
+</qualifiedTypeNameHistroy>

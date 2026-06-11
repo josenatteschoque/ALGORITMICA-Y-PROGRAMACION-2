@@ -1,0 +1,10 @@
+package test;
+import net.datastructure.ArrayListStack;
+
+public class TestArrayListStack {
+
+	public static void main(String[] args) {
+		ArrayListStack<String> li = new ArrayListStack<>();
+	}
+
+}

@@ -1,0 +1,8 @@
+package net.datastructure;
+
+import java.util.List;
+
+public class ArrayList<E> implements List<E> {
+
+	
+}

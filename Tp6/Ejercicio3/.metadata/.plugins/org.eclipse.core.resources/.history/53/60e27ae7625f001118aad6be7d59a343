@@ -1,0 +1,6 @@
+package net.datastructure;
+
+public class ArrayList<E> implements List<E> {
+
+	
+}
