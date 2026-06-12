@@ -1,6 +1,7 @@
 package biblioteca.datos;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ import net.datastructures.LinkedPositionalList;
 import biblioteca.modelo.Libro;
 import biblioteca.modelo.Socio;
 import biblioteca.modelo.Prestamo;
-
+import java.util.Scanner;
 public class Dato {
 
     /**
@@ -24,6 +25,30 @@ public class Dato {
 
         ProbeHashMap<String, Libro> libros = new ProbeHashMap<>();
         // TODO: implementar lectura del archivo y carga del mapa
+        Scanner lectura = new Scanner(new File(fileName));
+        //Leera hasta la ultima linea del archivo
+        while(lectura.hasNextLine()) {
+        	
+        	//Carga la primer linea del archivo
+        	String linea = lectura.nextLine();
+        	String[] datos = linea.split(";");
+        	
+        	//trim() Elimina espacios en blanco al principio y final de un String.
+         	String isbn = datos[0].trim();
+        	String titulo = datos[1].trim();
+        	String autor = datos[2].trim();
+        	String genero = datos[3].trim();
+        	int anio = Integer.parseInt(datos[4].trim());
+        	int ejemplares = Integer.parseInt(datos[5].trim());
+        	
+        	Libro libro = new Libro(isbn, titulo, autor, genero, anio, ejemplares);
+        	
+        	libros.put(isbn, libro);
+        	
+        }
+        //Cierra el Scanner
+    	lectura.close();
+
         return libros;
     }
 
