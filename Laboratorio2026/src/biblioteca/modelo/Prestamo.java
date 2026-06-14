@@ -16,7 +16,7 @@ public class Prestamo {
     	this.libro = libro;
     	this.fechaPrestamo = fechaPrestamo;
     	this.fechaVencimiento = fechaVencimiento;
-    	
+    	this.activo = true;    	
         // TODO: inicializar atributos
         // Nota: al crear un préstamo, activo debe ser true
     }

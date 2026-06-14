@@ -37,6 +37,7 @@ public class Logica {
      */
     public boolean prestar(String nroSocio, String isbn) {
         // TODO: implementar
+    	
         return false;
     }
 

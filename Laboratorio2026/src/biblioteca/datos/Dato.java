@@ -3,6 +3,7 @@ package biblioteca.datos;
 import java.io.File;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import net.datastructures.ProbeHashMap;
@@ -10,7 +11,9 @@ import net.datastructures.LinkedPositionalList;
 import biblioteca.modelo.Libro;
 import biblioteca.modelo.Socio;
 import biblioteca.modelo.Prestamo;
-import java.util.Scanner;
+
+import java.time.format.DateTimeFormatter;	//Necesario para formatear la fecha
+
 public class Dato {
 
     /**
@@ -24,8 +27,10 @@ public class Dato {
             throws FileNotFoundException {
 
         ProbeHashMap<String, Libro> libros = new ProbeHashMap<>();
+        
         // TODO: implementar lectura del archivo y carga del mapa
         Scanner lectura = new Scanner(new File(fileName));
+        
         //Leera hasta la ultima linea del archivo
         while(lectura.hasNextLine()) {
         	
@@ -64,6 +69,28 @@ public class Dato {
 
         ProbeHashMap<String, Socio> socios = new ProbeHashMap<>();
         // TODO: implementar lectura del archivo y carga del mapa
+        Scanner lectura = new Scanner(new File(fileName));
+        
+        //Leera hasta la ultima linea del archivo
+        while(lectura.hasNextLine()){
+        	String linea = lectura.nextLine();
+        	String[] datos = linea.split(";");
+        	
+        	String nroSocio = datos[0].trim();
+        	String nombre = datos[1].trim();
+        	String apellido = datos[2].trim();
+        	String email = datos[3].trim();
+        	boolean activo = Boolean.parseBoolean(datos[4].trim());
+        	
+        	
+        	Socio socio = new Socio(nroSocio, nombre, apellido, email, activo); 
+        	
+        	socios.put(nroSocio, socio);
+        	
+        }
+        
+        //Finaliza el Scanner
+        lectura.close();
         return socios;
     }
 
@@ -82,6 +109,47 @@ public class Dato {
 
         ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos = new ProbeHashMap<>();
         // TODO: implementar lectura del archivo y carga del mapa
+        Scanner lectura = new Scanner(new File(fileName));
+
+        //Esto sirve para formatear las fechas 
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        //Leera hasta la ultima linea del archivo
+        while(lectura.hasNextLine()) {
+        	String linea = lectura.nextLine();
+        	String[] datos = linea.split(";");
+
+        			
+        	String nroSocio = datos[0].trim();
+        	String isbn = datos[1].trim();
+        	LocalDate fechaPrestamo = LocalDate.parse(datos[2].trim(), formatter);
+        	LocalDate fechaVencimiento = LocalDate.parse(datos[3].trim(), formatter);
+        	
+        	Socio socio = socios.get(nroSocio);	//Busca en el mapa de socios
+        	Libro libro = libros.get(isbn);	//Busca en el mapa de libros
+        	
+        	if(socio != null && libro != null) {
+        		//Si el socio y el libro estan en el mapa se crea un prestamo
+        		
+        		Prestamo p = new Prestamo(socio, libro, fechaPrestamo, fechaVencimiento); 
+        		
+        		//Vemos que si el prestamo esta en el mapa
+        		LinkedPositionalList<Prestamo> lista = prestamos.get(nroSocio);
+        		
+        		//Si no esta se crea una nueva lista y se agrega al mapa
+        		if(lista == null) {
+        			lista = new LinkedPositionalList<>();
+        			
+        			prestamos.put(nroSocio, lista);
+        		}
+
+        		//Se agrega el prestamos ala lista
+        		lista.addLast(p);
+        	}
+        }
+        
+        //Finaliza el Scanner
+        lectura.close();
         return prestamos;
     }
 }
