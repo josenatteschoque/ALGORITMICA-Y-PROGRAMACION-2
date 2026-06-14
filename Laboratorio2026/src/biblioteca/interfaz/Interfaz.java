@@ -43,6 +43,7 @@ public class Interfaz {
         		
         		//Si el valor ingresado esta entre el rango de 0 a 10 retorna la opcion
         		if(opcion >= Constante.OPCION_SALIR && opcion <= Constante.OPCION_VENCIDOS ) {
+        			SC.nextLine();	//Descarta el \n
         			return opcion;
         		}
         		
@@ -59,7 +60,6 @@ public class Interfaz {
     public static String pedirIsbn() {
         System.out.print("Ingrese ISBN: ");
         // TODO: implementar
-        SC.nextLine();	//Descarta el \n
         String isbn = SC.nextLine();	//Lee lo ingresado
         return isbn.trim();	//Retorna el isbn sin espacios
     }
@@ -68,7 +68,6 @@ public class Interfaz {
     public static String pedirNroSocio() {
         System.out.print("Ingrese número de socio: ");
         // TODO: implementar
-        SC.nextLine();	//Descarta el \n
         String nroSocio = SC.nextLine();	//Lee lo ingresado
         return nroSocio.trim(); //Retorna el nroSocio sin espacios
     }
@@ -77,7 +76,6 @@ public class Interfaz {
     public static String pedirTitulo() {
         System.out.print("Ingrese título (o parte del título): ");
         // TODO: implementar
-        SC.nextLine();
         String titulo = SC.nextLine();
         return titulo.trim();
     }
@@ -86,7 +84,6 @@ public class Interfaz {
     public static String pedirAutor() {
         System.out.print("Ingrese nombre del autor: ");
         // TODO: implementar
-        SC.nextLine();
         String autor = SC.nextLine();
         return autor.trim();
     }
@@ -104,6 +101,7 @@ public class Interfaz {
         		
         		//Si el valor es positivo lo retorno
         		if(n > 0) {
+        			SC.nextLine();	//Descarta el \n
         			return n;
         		}
         		
