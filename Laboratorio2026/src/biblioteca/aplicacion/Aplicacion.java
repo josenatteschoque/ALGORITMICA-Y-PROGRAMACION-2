@@ -51,30 +51,84 @@ public class Aplicacion {
             switch (opcion) {
                 case Constante.OPCION_PRESTAR:
                     // TODO: pedir datos al usuario y llamar a logica.prestar(...)
+                	String nroSocioPrestar = Interfaz.pedirNroSocio();
+                	String isbnPrestar = Interfaz.pedirIsbn();
+                	boolean prestamoExitoso = logica.prestar(nroSocioPrestar, isbnPrestar);
+                	if(prestamoExitoso == true) {
+                		Interfaz.mostrarMensaje("Prestamo registrado!");
+                	}else {
+                		Interfaz.mostrarError("No se pudo registrar el prestamo!");
+                	}
                     break;
 
                 case Constante.OPCION_DEVOLVER:
                     // TODO: pedir datos al usuario y llamar a logica.devolver(...)
+                	String nroSocioDevolver = Interfaz.pedirNroSocio();
+                	String isbnDevolver = Interfaz.pedirIsbn();
+                	boolean DevolverExitoso = logica.devolver(nroSocioDevolver, isbnDevolver);
+                	if(DevolverExitoso == true) {
+                		Interfaz.mostrarMensaje("Devolucion registrada exitosa");
+                	}else {
+                		Interfaz.mostrarError("Nose pudo devolver!");
+                	}
                     break;
 
                 case Constante.OPCION_BUSCAR_ISBN:
                     // TODO: pedir ISBN y mostrar resultado de logica.buscarPorIsbn(...)
+                	String isbnBuscar = Interfaz.pedirIsbn();
+                	Libro libroEncontrado =	logica.buscarPorIsbn(isbnBuscar);
+                	if(libroEncontrado != null) {
+                		Interfaz.mostrarLibro(libroEncontrado);
+                	}else {
+                		Interfaz.mostrarError("Nose encontro ningun libro con ISBN" +isbnBuscar);
+                	}
+                	
                     break;
 
                 case Constante.OPCION_BUSCAR_TITULO:
                     // TODO: pedir título y mostrar resultados de logica.buscarPorTitulo(...)
+                	String tituloBuscar = Interfaz.pedirTitulo();
+                	LinkedPositionalList<Libro> librosPorTitulo = logica.buscarPorTitulo(tituloBuscar);
+                	if(librosPorTitulo.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encontraron libros con ese titulo.");
+                	}else {
+                		Interfaz.mostrarListaLibros(librosPorTitulo);
+                	}
                     break;
 
                 case Constante.OPCION_BUSCAR_AUTOR:
                     // TODO: pedir autor y mostrar resultados de logica.buscarPorAutor(...)
+                	String autorBuscar = Interfaz.pedirAutor();
+                	LinkedPositionalList<Libro> librosPorAutor = logica.buscarPorAutor(autorBuscar);
+                	if(librosPorAutor.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encontro libros con ese autor.");
+                	}else {
+                		Interfaz.mostrarListaLibros(librosPorAutor);
+                	}
                     break;
 
                 case Constante.OPCION_DISPONIBLES:
                     // TODO: mostrar resultado de logica.listarDisponibles()
-                    break;
+                	LinkedPositionalList<Libro> disponibles = logica.listarDisponibles();
+                	if(disponibles.isEmpty()) {
+                		Interfaz.mostrarMensaje("No soy libros disponibles");
+                	}else {
+                		Interfaz.mostrarMensaje("Libros disponibles: ");
+                		Interfaz.mostrarListaLibros(disponibles);
+                	}
+                	break;
 
                 case Constante.OPCION_PRESTAMOS_SOCIO:
                     // TODO: pedir nroSocio y mostrar logica.prestamosActivosDeSocio(...)
+                	String nroSocio = Interfaz.pedirNroSocio();
+                	LinkedPositionalList<Prestamo> prestamosActivos = logica.prestamosActivosDeSocio(nroSocio);
+                	
+                	if(prestamosActivos.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encotraron prestamos activos!");
+                	}else {
+                		Interfaz.mostrarMensaje("Prestamos activos del socio "+nroSocio+":");
+                		Interfaz.mostrarListaPrestamos(prestamosActivos);
+                	}
                     break;
 
                 case Constante.OPCION_HISTORIAL:
