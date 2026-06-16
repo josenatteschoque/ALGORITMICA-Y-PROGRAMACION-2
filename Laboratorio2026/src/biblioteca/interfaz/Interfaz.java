@@ -34,84 +34,62 @@ public class Interfaz {
         System.out.print("Ingrese una opción: ");
 
         // TODO: validar que la entrada sea un número dentro del rango válido
-        //Avanza solo si el valor ingresado es un entero
-        while(true) {
-        	//Si el valor ingresado es un entero
-        	if(SC.hasNextInt()) {
-        		//Tomo el valor
-        		int opcion = SC.nextInt();
-        		
-        		//Si el valor ingresado esta entre el rango de 0 a 10 retorna la opcion
-        		if(opcion >= Constante.OPCION_SALIR && opcion <= Constante.OPCION_VENCIDOS ) {
-        			SC.nextLine();	//Descarta el \n
-        			return opcion;
-        		}
-        		
-        		//Si no se descarta
-        	}else {
-    			SC.next();
-    		}
-    		//Y si no es ninguna de las 2 salta un mensaje de error!
+
+        //Valida si el dato ingresado es un entero y si no termina 
+        while(!SC.hasNextInt()){
+        	
+        	//Limpia el buffer
+        	SC.next();
+        	
     		mostrarError("Opcion invalida!. Ingrese un numero entre el 0 y 10: ");
         }
+        
+        //Devuelve el numero ingresado
+        return SC.nextInt();
     }
     
 
     public static String pedirIsbn() {
         System.out.print("Ingrese ISBN: ");
         // TODO: implementar
-        String isbn = SC.nextLine();	//Lee lo ingresado
-        return isbn.trim();	//Retorna el isbn sin espacios
+        return SC.next();	//Retorna el isbn
     }
     
 
     public static String pedirNroSocio() {
         System.out.print("Ingrese número de socio: ");
         // TODO: implementar
-        String nroSocio = SC.nextLine();	//Lee lo ingresado
-        return nroSocio.trim(); //Retorna el nroSocio sin espacios
+        return SC.next(); //Retorna el nroSocio
     }
     
 
     public static String pedirTitulo() {
         System.out.print("Ingrese título (o parte del título): ");
         // TODO: implementar
-        String titulo = SC.nextLine();
-        return titulo.trim();
+        return SC.next();
     }
     
 
     public static String pedirAutor() {
         System.out.print("Ingrese nombre del autor: ");
         // TODO: implementar
-        String autor = SC.nextLine();
-        return autor.trim();
+        return SC.next();
     }
     
 
     public static int pedirN() {
         System.out.print("Ingrese cantidad de libros a mostrar: ");
         // TODO: implementar
-        while(true) {
-        	//Si el valor ingresado es un entero
-        	if(SC.hasNextInt()) {
+        //Valida si el dato ingresado es un entero si no termina 
+        while(!SC.hasNextInt()) {	
+        	
+        	//Tomo el valor ingresado
+        	SC.nextInt();
         		
-        		//Tomo el valor ingresado
-        		int n = SC.nextInt();
-        		
-        		//Si el valor es positivo lo retorno
-        		if(n > 0) {
-        			SC.nextLine();	//Descarta el \n
-        			return n;
-        		}
-        		
-        		//Y si no se descarta
-        	}else {
-    			SC.next();
-    		}
-    		//Y si no es ninguna de las opciones salta un mensaje de error!
     		mostrarError("Ingrese un numero positivo! ");
         }
+        //Devuelvo el valor ingresado
+    	return SC.nextInt();
     }
 
     /**
@@ -150,7 +128,7 @@ public class Interfaz {
     	System.out.println("AUTOR: "+libro.getAutor());
     	System.out.println("GENERO: "+libro.getGenero());
     	System.out.println("AÑO DE PUBLICACION: "+libro.getAnioPublicacion());
-    	System.out.println("EJEMPLARES DISPONIBLES: "+libro.getEjemplaresDisponibles());
+    	System.out.println("COPIASx DISPONIBLES: "+libro.getEjemplaresDisponibles());
     	
     }
 

@@ -111,7 +111,7 @@ public class Aplicacion {
                     // TODO: mostrar resultado de logica.listarDisponibles()
                 	LinkedPositionalList<Libro> disponibles = logica.listarDisponibles();
                 	if(disponibles.isEmpty()) {
-                		Interfaz.mostrarMensaje("No soy libros disponibles");
+                		Interfaz.mostrarMensaje("No Hay libros disponibles");
                 	}else {
                 		Interfaz.mostrarMensaje("Libros disponibles: ");
                 		Interfaz.mostrarListaLibros(disponibles);

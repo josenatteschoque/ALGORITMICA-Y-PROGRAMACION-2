@@ -35,16 +35,15 @@ public class Dato {
         while(lectura.hasNextLine()) {
         	
         	//Carga la primer linea del archivo
-        	String linea = lectura.nextLine();
-        	String[] datos = linea.split(";");
+        	String[] datos = lectura.nextLine().split(";");
         	
         	//trim() Elimina espacios en blanco al principio y final de un String.
-         	String isbn = datos[0].trim();
-        	String titulo = datos[1].trim();
-        	String autor = datos[2].trim();
-        	String genero = datos[3].trim();
-        	int anio = Integer.parseInt(datos[4].trim());
-        	int ejemplares = Integer.parseInt(datos[5].trim());
+         	String isbn = datos[0];
+        	String titulo = datos[1];
+        	String autor = datos[2];
+        	String genero = datos[3];
+        	int anio = Integer.parseInt(datos[4]);
+        	int ejemplares = Integer.parseInt(datos[5]);
         	
         	Libro libro = new Libro(isbn, titulo, autor, genero, anio, ejemplares);
         	
@@ -73,14 +72,13 @@ public class Dato {
         
         //Leera hasta la ultima linea del archivo
         while(lectura.hasNextLine()){
-        	String linea = lectura.nextLine();
-        	String[] datos = linea.split(";");
+        	String[] datos = lectura.nextLine().split(";");
         	
-        	String nroSocio = datos[0].trim();
-        	String nombre = datos[1].trim();
-        	String apellido = datos[2].trim();
-        	String email = datos[3].trim();
-        	boolean activo = Boolean.parseBoolean(datos[4].trim());
+        	String nroSocio = datos[0];
+        	String nombre = datos[1];
+        	String apellido = datos[2];
+        	String email = datos[3];
+        	boolean activo = Boolean.parseBoolean(datos[4]);
         	
         	
         	Socio socio = new Socio(nroSocio, nombre, apellido, email, activo); 
@@ -116,14 +114,13 @@ public class Dato {
 
         //Leera hasta la ultima linea del archivo
         while(lectura.hasNextLine()) {
-        	String linea = lectura.nextLine();
-        	String[] datos = linea.split(";");
+        	String[] datos = lectura.nextLine().split(";");
 
         			
-        	String nroSocio = datos[0].trim();
-        	String isbn = datos[1].trim();
-        	LocalDate fechaPrestamo = LocalDate.parse(datos[2].trim(), formatter);
-        	LocalDate fechaVencimiento = LocalDate.parse(datos[3].trim(), formatter);
+        	String nroSocio = datos[0];
+        	String isbn = datos[1];
+        	LocalDate fechaPrestamo = LocalDate.parse(datos[2], formatter);
+        	LocalDate fechaVencimiento = LocalDate.parse(datos[3], formatter);
         	
         	Socio socio = socios.get(nroSocio);	//Busca en el mapa de socios
         	Libro libro = libros.get(isbn);	//Busca en el mapa de libros

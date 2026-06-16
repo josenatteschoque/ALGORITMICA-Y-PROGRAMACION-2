@@ -16,7 +16,7 @@ public class TestCargaDatos {
 		//Dejo esto afuera haci puedo usarlo en el prestamo
 		ProbeHashMap<String, Libro> libros = null;
 		try {
-			libros = Dato.cargarLibros("src/libros.txt");
+			libros = Dato.cargarLibros("libros.txt");
 			System.out.println("Libros cargados: " +libros.size());
 			
 			//Muestra los libros cargados
@@ -33,7 +33,7 @@ public class TestCargaDatos {
 		//Dejo esto afuera haci puedo usarlo en el prestamo
 		ProbeHashMap<String, Socio> socios = null;
 		try {
-			socios = Dato.cargarSocios("src/socios.txt");
+			socios = Dato.cargarSocios("socios.txt");
 			System.out.println("Socios cargados: "+socios.size());
 			
 			//Muestro los socios cargados
@@ -48,7 +48,7 @@ public class TestCargaDatos {
 		
 		//Cargo los prestamos 
 		try {
-			ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos =	Dato.cargarPrestamos("src/prestamos.txt", socios, libros);
+			ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos =	Dato.cargarPrestamos("prestamos.txt", socios, libros);
 			System.out.println("Prestamos cargados: "+prestamos.size());
 			
 			for(String nroSocio: prestamos.keySet()) {
