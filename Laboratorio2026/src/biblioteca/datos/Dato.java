@@ -128,7 +128,7 @@ public class Dato {
         	if(socio != null && libro != null) {
         		//Si el socio y el libro estan en el mapa se crea un prestamo
         		
-        		Prestamo p = new Prestamo(socio, libro, fechaPrestamo, fechaVencimiento); 
+        		Prestamo p = new Prestamo(socio, libro, fechaPrestamo, fechaVencimiento, true); 
         		
         		//Vemos que si el prestamo esta en el mapa
         		LinkedPositionalList<Prestamo> lista = prestamos.get(nroSocio);

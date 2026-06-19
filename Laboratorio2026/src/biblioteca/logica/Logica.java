@@ -68,8 +68,8 @@ public class Logica {
     	LocalDate fechaPrestamo = LocalDate.now();	//Obtiene la fecha actual del sistema
     	LocalDate fechaVencimiento = fechaPrestamo.plusDays(14);	//Suma 14 dias despues de la fecha del prestamo
     	
-    	//Creo el prestamo
-    	Prestamo p = new Prestamo(socio, libro, fechaPrestamo, fechaVencimiento);
+    	//Creo el prestamo y lo pongo en true porque se pudo prestar!
+    	Prestamo p = new Prestamo(socio, libro, fechaPrestamo, fechaVencimiento, true);
     	
     	//Reduzco la cantidad de ejemplares disponibles
     	libro.setEjemplaresDisponibles(libro.getEjemplaresDisponibles() -1);

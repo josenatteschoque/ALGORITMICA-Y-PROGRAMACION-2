@@ -11,7 +11,7 @@ public class Prestamo {
     private boolean   activo;
 
     public Prestamo(Socio socio, Libro libro,
-                    LocalDate fechaPrestamo, LocalDate fechaVencimiento) {
+                    LocalDate fechaPrestamo, LocalDate fechaVencimiento, boolean activo) {
     	this.socio = socio;
     	this.libro = libro;
     	this.fechaPrestamo = fechaPrestamo;
