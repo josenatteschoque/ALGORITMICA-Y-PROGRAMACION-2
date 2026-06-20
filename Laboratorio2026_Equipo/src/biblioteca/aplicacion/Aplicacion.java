@@ -16,7 +16,6 @@ import biblioteca.modelo.Socio;
 public class Aplicacion {
 
     public static void main(String[] args) {
-
         // 1. Cargar parámetros de configuración
         try {
             CargarParametros.parametros();
@@ -51,10 +50,10 @@ public class Aplicacion {
             switch (opcion) {
                 case Constante.OPCION_PRESTAR:
                     // TODO: pedir datos al usuario y llamar a logica.prestar(...)
-                	String P_nrosocio = Interfaz.pedirNroSocio(); // creo una variable nro de socio y lo cargo pidiendo ala clasee interfaz el metodo pedir nrosocio
-                	String P_isbn = Interfaz.pedirIsbn(); // creo la variable para almacenar el isbn y lo cargo piendole ala clase interfaz el metodo pedir isbn
-                	if(logica.prestar(P_nrosocio, P_isbn)) {//verifico si el socio esta en condiciones para dicho prestamo del libro
-                		Interfaz.mostrarMensaje("prestamo registrado correctamente");// accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
+                	String P_nrosocio = Interfaz.pedirNroSocio(); 	//Creo una variable nro de socio y lo cargo pidiendo ala clasee interfaz el metodo pedir nrosocio
+                	String P_isbn = Interfaz.pedirIsbn(); 	//Creo la variable para almacenar el isbn y lo cargo piendole ala clase interfaz el metodo pedir isbn
+                	if(logica.prestar(P_nrosocio, P_isbn)) {	//Verifico si el socio esta en condiciones para dicho prestamo del libro
+                		Interfaz.mostrarMensaje("prestamo registrado correctamente");	//Accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
                 	}else {
                 		Interfaz.mostrarError("no se pud registrar el prestamo\n "
                 				+ "verifique que el socio este activo y alla ejemplares disponibles");// accedo al metodo mostrar error que esta en la clase interfaz para pasar el mensaje de error

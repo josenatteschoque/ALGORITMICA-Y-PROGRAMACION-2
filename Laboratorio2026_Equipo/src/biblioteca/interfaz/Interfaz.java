@@ -34,113 +34,146 @@ public class Interfaz {
 		System.out.print("Ingrese una opción: ");
 
 		// TODO: validar que la entrada sea un número dentro del rango válido
-		while (!SC.hasNextInt()) {//esta parte verifica que el numero ingresado por el usuario sea un numro y no una palabra
+		
+		while (!SC.hasNextInt()) {	//Esta parte verifica que el numero ingresado por el usuario sea un numro y no una palabra
 			SC.next();
-			System.out.println("opcion invalida ingrese el numero:");
+			mostrarError("Opcion invalida!. Ingrese un numero entre el 0 y 10: ");
 		}
-		return SC.nextInt();//retorna el numero ingresado por el usuario
+		
+		//Retorna el numero ingresado por el usuario
+		return SC.nextInt();
 	}
-// solicita al usuario que ingrese un isbn
+	
+	//Solicita al usuario que ingrese un isbn
 	public static String pedirIsbn() {
 		System.out.print("Ingrese ISBN: ");
 		// TODO: implementar
-		return SC.next();//retorna el isbn ingresado por el usuario
+		
+		return SC.next();	//Retorna el isbn ingresado por el usuario
 	}
-//solicita al usuario que ingrese un nrodesocio
+	
+	
+	//Solicita al usuario que ingrese un nrodesocio
 	public static String pedirNroSocio() {
 		System.out.print("Ingrese número de socio: ");
 		// TODO: implementar
-		return SC.next();//retorna el nro de socio ingresado por el usuario
+		
+		return SC.next();	//Retorna el nro de socio ingresado por el usuario
 	}
 	  
+	
 	public static String pedirTitulo() {
-		System.out.print("Ingrese título (o parte del título): "); //solicita al usuario que ingrese un título o parte de un título
+		System.out.print("Ingrese título (o parte del título): "); //Solicita al usuario que ingrese un título o parte de un título
 		// TODO: implementar
-		SC.nextLine();      //limpia el buffer antes de leer para evitar problemas con el nextInt anterior
-		return SC.nextLine();//usa nextline para permitir espacios en el texto ingresado
+		
+		SC.nextLine();      //Limpia el buffer antes de leer para evitar problemas con el nextInt anterior
+		return SC.nextLine();	//Usa nextline para permitir espacios en el texto ingresado
 	}
 
+	
 	public static String pedirAutor() {
-		System.out.print("Ingrese nombre del autor: ");//solicita al usuario que ingrese el nombre del autor
+		System.out.print("Ingrese nombre del autor: ");	//Solicita al usuario que ingrese el nombre del autor
 		// TODO: implementar
-		SC.nextLine();//limpia el buffer antes de leer para evitar problemas con el nextInt anterior
-		return SC.nextLine();//usa nextline para permitir espacios en el texto ingresado
+		
+		SC.nextLine();	//Limpia el buffer antes de leer para evitar problemas con el nextInt anterior
+		return SC.nextLine();	//Usa nextline para permitir espacios en el texto ingresado
 		}
 
+	
 	public static int pedirN() {
 		System.out.print("Ingrese cantidad de libros a mostrar: ");
 		// TODO: implementar
-		while (!SC.hasNextInt()) {//verifica que el valor ingreasado por el usuario sea un numero si no lo es vuelve a repetir
-			SC.next();//limpia el buffer 
-			System.out.println("valor invalido ingrese un numero:");
+		
+		while (!SC.hasNextInt()) {	//Verifica que el valor ingresado por el usuario sea un numero si no lo es vuelve a repetir
+			SC.next();	//Limpia el buffer 
+			mostrarError("valor invalido ingrese un numero:");
 		}
-		return SC.nextInt();//retorna el numero ingresado por el usuario
+		
+		//Retorna el numero ingresado por el usuario
+		return SC.nextInt();
 	}
 
+	
 	/**
 	 * Solicita una fecha al usuario en formato dd/MM/yyyy y la retorna como
 	 * LocalDate. Debe validar el formato antes de retornar.
 	 */
 	public static LocalDate pedirFecha(String etiqueta) {
 		while (true) {
-			System.out.print("Ingrese " + etiqueta + " (dd/MM/yyyy): ");//solicita al usuario que ingrese una fecha en formato dd/MM/yyyy
+			System.out.print("Ingrese " + etiqueta + " (dd/MM/yyyy): ");
 			// TODO: implementar y validar formato usando DateTimeFormatter FMT
+			
 			String entrada = SC.next();
 			try {
-				return LocalDate.parse(entrada, FMT); //valida el formato antes de retornarlo adentro de un try carch para atrapar la axepcion y no detener el programa
-				//si es incorrecto avisa y vuelve a repetirse hasta que el usuario ingrese una fecha valida
+				
+				return LocalDate.parse(entrada, FMT); //Valida el formato antes de retornarlo adentro de un try catch para atrapar la excepcion y no detener el programa
+			
+			//Si es incorrecto avisa y vuelve a repetirse hasta que el usuario ingrese una fecha valida
 			} catch (DateTimeParseException e) {
-				System.out.println("formato invalido use dd/MM/yyyy");
+				mostrarError("Formato de fecha invalido. Utilize dd/MM/yyyy");
 			}
 		}
 	}
 
+	
 	// ── Métodos de presentación de resultados ──
 
 	public static void mostrarLibro(Libro libro) {
 		// TODO: implementar
-		if(libro == null) {//verifico si se encuetra dicho libro
-			System.out.println("libro no encntrado");
+		
+		if(libro == null) {	//Verifico si se encuetra dicho libro
+			mostrarError("libro no encntrado");
 			return;
 		}
-		//si el libro se encontro muestro todas las partes del libro que la conforman
+		
+		//Si el libro se encontro muestro todas las partes del libro que la conforman
 		System.out.println("---------------------------------------");
-		System.out.println("isbn:"+libro.getIsbn());
-		System.out.println("titulo:"+libro.getTitulo());
-		System.out.println("autor:"+libro.getAutor());
-		System.out.println("genero:"+libro.getGenero());
-		System.out.println("año de publicacion:"+libro.getAnioPublicacion());
-		System.out.println("copias disponibles:"+libro.getEjemplaresDisponibles());
+		System.out.println("Isbn: "+libro.getIsbn());
+		System.out.println("Titulo: "+libro.getTitulo());
+		System.out.println("Autor: "+libro.getAutor());
+		System.out.println("Genero: "+libro.getGenero());
+		System.out.println("Año de publicacion: "+libro.getAnioPublicacion());
+		System.out.println("Copias disponibles: "+libro.getEjemplaresDisponibles());
 		System.out.println("---------------------------------------");
 	}
 
+	
 	public static void mostrarListaLibros(Iterable<Libro> libros) {
 		// TODO: implementar
 		boolean haylibros = false;
-		for(Libro libro: libros) {
-			mostrarLibro(libro); //muestro los dichos libro con el metodo mostrarlibro
-			haylibros = true; //asigno true ya que se aencontrado libros
+		
+		if(libros == null) {
+			mostrarMensaje("La lista esta vacia!");
+			return;
 		}
-		if(!haylibros) {//pregunto si se encontraro libros si la respuesta es false entra dentro del if
-			System.out.println("no se encontraron libros");
+		
+		for(Libro libro: libros) {
+			mostrarLibro(libro); //Muestro los dichos libro con el metodo mostrarlibro
+			haylibros = true; //Asigno true ya que se encontraron libros
+		}
+		
+		if(!haylibros) {	//Pregunto si se encontraro libros si la respuesta es false entra dentro del if
+			mostrarMensaje("no se encontraron libros");
 		}
 	}
 
+	
 	public static void mostrarListaPrestamos(Iterable<Prestamo> prestamos) {
 		// TODO: implementar
-		boolean hayprestamos = false;//con esta variable nos fijamos si el socio llego a tener prestamos
-		for(Prestamo p: prestamos) {//imprimo los disintos atributos de cada prestamo
+		boolean hayprestamos = false;	//Con esta variable nos fijamos si el socio llego a tener prestamos
+		
+		for(Prestamo p: prestamos) {	//Imprimo los disintos atributos de cada prestamo
 			System.out.println("---------------------------------------");
-			System.out.println("socio:"+p.getSocio().getNroSocio());
-			System.out.println("libro:"+p.getLibro().getTitulo());
-			System.out.println("prestado:"+ p.getFechaPrestamo().format(FMT));//el .format(FMT) me imprime la fecha guardada en el formato que utilizo dd/MM/yyyy
-			System.out.println("vence:"+p.getFechaVencimiento().format(FMT));
-			System.out.println("activo:"+p.isActivo());
+			System.out.println("Socio: "+p.getSocio().getNroSocio()+" Nombre: "+p.getSocio().getNombre()+" "+p.getSocio().getApellido());
+			System.out.println("Libro: "+p.getLibro().getTitulo()+" Isbn: "+p.getLibro().getIsbn());
+			System.out.println("Fecha Prestamo: "+ p.getFechaPrestamo().format(FMT));	//El format(FMT) me imprime la fecha guardada en el formato que utilizo dd/MM/yyyy
+			System.out.println("Fecha Vencimiento: "+p.getFechaVencimiento().format(FMT));
+			System.out.println("Activo: "+p.isActivo());
 			System.out.println("---------------------------------------");
-			hayprestamos=true;// luego asignamos true ala vaiable hayprestamos cosa que nos indica que hubo almenos un prestamo
+			hayprestamos=true;	//Luego asignamos true ala vaiable hayprestamos cosa que nos indica que hubo almenos un prestamo
 		}
-		if(!hayprestamos) {//esta condicion solo se cumple cuando el socio no tiene prestamos
-			System.out.println("no hay prestamos");
+		if(!hayprestamos) {	//Esta condicion solo se cumple cuando el socio no tiene prestamos
+			mostrarMensaje("no hay prestamos");
 		}
 	}
 

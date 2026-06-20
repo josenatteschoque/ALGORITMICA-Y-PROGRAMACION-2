@@ -163,13 +163,15 @@ public class Logica {
      */
     public LinkedPositionalList<Libro> listarDisponibles() {
         // TODO: implementar
-    	LinkedPositionalList<Libro> resultados_de_busqueda = new LinkedPositionalList<>();//creo una nueva lista para la busqueda
-    	for(Libro libro:catalogo.values()) {//exploro el catalogo uno por uno
-    		if(libro.getEjemplaresDisponibles()>0) {//pregunto si quedan ejemplares del dicho libro inspecionado
-    			resultados_de_busqueda.addLast(libro);//si es asi guardo el libro al final de la lista
+    	LinkedPositionalList<Libro> resultados_de_busqueda = new LinkedPositionalList<>();	//Creo una nueva lista para la busqueda
+
+    	for(Libro libro:catalogo.values()) {	//Exploro el catalogo uno por uno
+    		
+    		if(libro.getEjemplaresDisponibles() > 0) {	//Pregunto si quedan ejemplares del dicho libro inspecionado
+    			resultados_de_busqueda.addLast(libro);	//Si es asi guardo el libro al final de la lista
     		}
     	}
-        return resultados_de_busqueda; //retorno la lista de libros con ejemplares disponibles
+        return resultados_de_busqueda; //Retorno la lista de libros con ejemplares disponibles
     }
 
     /**
@@ -177,19 +179,21 @@ public class Logica {
      */
     public LinkedPositionalList<Prestamo> prestamosActivosDeSocio(String nroSocio) {
         // TODO: implementar
-    	LinkedPositionalList<Prestamo> busca_prestamo = new LinkedPositionalList<>();//creo una neuva lista para guardar los prestamos activos
-    	LinkedPositionalList<Prestamo> lista_de_prestamos = prestamosActivo.get(nroSocio);// creo y asigno a esta otra lista la lista de prestamos que tiene el socio en el mapa de prestamos activos
-    	if(lista_de_prestamos == null) {//pregunta si existe la lista
-    		return busca_prestamo;// si no es asi retorno la lista vacia
+    	LinkedPositionalList<Prestamo> busca_prestamo = new LinkedPositionalList<>();	//Creo una neuva lista para guardar los prestamos activos
+    	LinkedPositionalList<Prestamo> lista_de_prestamos = prestamosActivo.get(nroSocio);	//Creo y asigno a esta otra lista la lista de prestamos que tiene el socio en el mapa de prestamos activos
+    	
+    	if(lista_de_prestamos == null) {	//Pregunta si existe la lista
+    		return busca_prestamo;	//Si no es asi retorno la lista vacia
     	}
     	
-    	for(Prestamo p: lista_de_prestamos) {//exploro la lista de prestamos uno por uno
-    		if(p.isActivo()) {//pregunto si este prestamo esta activo
-    			busca_prestamo.addLast(p);//si es asi añado el prestamo al final de la lista para los prestamos activos
+    	for(Prestamo p: lista_de_prestamos) {	//Exploro la lista de prestamos uno por uno
+    		
+    		if(p.isActivo() == true) {	//Pregunto si este prestamo esta activo
+    			busca_prestamo.addLast(p);	//Si es haci añado el prestamo al final de la lista para los prestamos activos
     		}
     		
     	}
-        return busca_prestamo;//retorno la lista de prestamos activos de dicho socio
+        return busca_prestamo;	//Retorno la lista de prestamos activos de dicho socio
     }
 
     // ── INCREMENTO 2 ──────────────────────────────────────────────

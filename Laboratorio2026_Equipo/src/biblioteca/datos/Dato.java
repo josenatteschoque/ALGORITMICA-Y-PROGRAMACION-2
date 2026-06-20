@@ -24,8 +24,11 @@ public class Dato {
 	public static ProbeHashMap<String, Libro> cargarLibros(String fileName) throws FileNotFoundException {
 
 		ProbeHashMap<String, Libro> libros = new ProbeHashMap<>();
+		
 		// TODO: implementar lectura del archivo y carga del mapa
 		Scanner lectura = new Scanner(new File(fileName));
+		
+		 //Leera hasta la ultima linea del archivo
 		while (lectura.hasNextLine()) {
 			String linea = lectura.nextLine();
 			String[] partes_del_libro = linea.split(";");
@@ -39,10 +42,12 @@ public class Dato {
 					, Integer.parseInt(partes_del_libro[5]));
 			libros.put(partes_del_libro[0], libro);
 		}
+		//Finalizo el Scanners
 		lectura.close();
 		return libros;
 	}
 
+	
 	/**
 	 * Carga los socios desde un archivo de texto. Formato de cada línea:
 	 * nroSocio;nombre;apellido;email;activo Ejemplo:
@@ -53,21 +58,26 @@ public class Dato {
 	public static ProbeHashMap<String, Socio> cargarSocios(String fileName) throws FileNotFoundException {
 
 		ProbeHashMap<String, Socio> socios = new ProbeHashMap<>();
+		
 		// TODO: implementar lectura del archivo y carga del mapa
 		Scanner lectura = new Scanner(new File(fileName));
+
+		//Leera hasta la ultima linea del archivo
 		while (lectura.hasNextLine()) {
 			String linea = lectura.nextLine();
 			String[] p_socios = linea.split(";");
 
-			Socio socio = new Socio(p_socios[0] // pues
-					, p_socios[1] //
-					, p_socios[2] //
-					, p_socios[3] //
-					, Boolean.parseBoolean(p_socios[4]) //
+			Socio socio = new Socio(p_socios[0] 
+					, p_socios[1] 
+					, p_socios[2]
+					, p_socios[3]
+					, Boolean.parseBoolean(p_socios[4])
 			);
 
 			socios.put(p_socios[0], socio);
 		}
+		
+		//Finalizo el Scanner
 		lectura.close();
 		return socios;
 	}
@@ -83,9 +93,12 @@ public class Dato {
 			ProbeHashMap<String, Socio> socios, ProbeHashMap<String, Libro> libros) throws FileNotFoundException {
 
 		ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos = new ProbeHashMap<>();
+		
 		// TODO: implementar lectura del archivo y carga del mapa
 		Scanner lectura = new Scanner(new File(fileName));
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		//Leera hasta la ultima linea del archivo
 		while (lectura.hasNextLine()) {
 			String linea = lectura.nextLine();
 			String[] partes = linea.split(";");
@@ -107,6 +120,7 @@ public class Dato {
 			lista.addLast(prestamo);
 
 		}
+		//Finaliza el Scanner 
 		lectura.close();
 
 		return prestamos;
