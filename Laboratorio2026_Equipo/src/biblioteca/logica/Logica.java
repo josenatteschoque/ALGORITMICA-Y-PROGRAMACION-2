@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import net.datastructures.ProbeHashMap;
 import net.datastructures.LinkedPositionalList;
 import net.datastructures.LinkedQueue;
+import biblioteca.interfaz.Interfaz;
 import biblioteca.modelo.Libro;
 import biblioteca.modelo.Socio;
 import biblioteca.modelo.Prestamo;
@@ -19,16 +20,17 @@ public class Logica {
     // Pensar: ¿cómo modelar la lista de espera por libro?
     // Pensar: ¿dónde guardar el historial de préstamos por socio?
     private ProbeHashMap<String,LinkedPositionalList<Prestamo>> prestamosActivo;//Creamos un nuevo mapa para guardar la lista de prestamos de los socios
-
+    private ProbeHashMap<String , LinkedQueue<String>> colaDeEspera;	//Creo la cola de espera
     
     //==================================================
     public Logica(ProbeHashMap<String, Libro> catalogo,
                   ProbeHashMap<String, Socio> socios,
-                  ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamosActivos) {
+                  ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamosActivos, ProbeHashMap<String, LinkedQueue<String>> colaDeEspera) {
         this.catalogo = catalogo;
         this.socios   = socios;
         // TODO: inicializar las estructuras internas a partir de los datos recibidos
         this.prestamosActivo = prestamosActivos;
+        this.colaDeEspera = colaDeEspera;
     }
 
     // ── INCREMENTO 1 ──────────────────────────────────────────────
@@ -204,6 +206,17 @@ public class Logica {
      */
     public void agregarEspera(String nroSocio, String isbn) {
         // TODO: implementar
+    	LinkedQueue<String> colaEspera = colaDeEspera.get(isbn); 
+    	
+    	if(colaEspera == null) {
+    		//Si la cola esta vacia la creo 
+    		colaEspera = new LinkedQueue<>();
+    		//Cargo el mapa con el isbn y la cola
+    		colaDeEspera.put(isbn, colaEspera);
+    	}
+    	//Cargo la cola con el nroSocio
+    	colaEspera.enqueue(nroSocio);
+    	System.out.println("Socio "+nroSocio+" Anotado en la lista de espera!");
     }
 
     /**

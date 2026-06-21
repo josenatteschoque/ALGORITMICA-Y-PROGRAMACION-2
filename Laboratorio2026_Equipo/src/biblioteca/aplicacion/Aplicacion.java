@@ -13,6 +13,8 @@ import biblioteca.modelo.Libro;
 import biblioteca.modelo.Prestamo;
 import biblioteca.modelo.Socio;
 
+import net.datastructures.LinkedQueue;
+
 public class Aplicacion {
 
     public static void main(String[] args) {
@@ -28,6 +30,9 @@ public class Aplicacion {
         ProbeHashMap<String, Libro>   catalogo  = null;
         ProbeHashMap<String, Socio>   socios    = null;
         ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos = null;
+        
+        ProbeHashMap<String, LinkedQueue<String>> colaDeEspera = null;
+        
 
         try {
             catalogo  = Dato.cargarLibros(CargarParametros.getArchivoLibros());
@@ -40,7 +45,7 @@ public class Aplicacion {
         }
 
         // 3. Inicializar capa lógica
-        Logica logica = new Logica(catalogo, socios, prestamos);
+        Logica logica = new Logica(catalogo, socios, prestamos, colaDeEspera);
 
         // 4. Ciclo principal de la aplicación
         int opcion;
@@ -52,13 +57,24 @@ public class Aplicacion {
                     // TODO: pedir datos al usuario y llamar a logica.prestar(...)
                 	String P_nrosocio = Interfaz.pedirNroSocio(); 	//Creo una variable nro de socio y lo cargo pidiendo ala clasee interfaz el metodo pedir nrosocio
                 	String P_isbn = Interfaz.pedirIsbn(); 	//Creo la variable para almacenar el isbn y lo cargo piendole ala clase interfaz el metodo pedir isbn
-                	boolean prestamoExitoso = logica.prestar(P_nrosocio, P_isbn);
-                	if(prestamoExitoso == true) {	//Verifico si el socio esta en condiciones para dicho prestamo del libro
-                		Interfaz.mostrarMensaje("Prestamo registrado correctamente!");	//Accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
+
+                	Libro l = logica.buscarPorIsbn(P_isbn);
+                	//Si el libro no esta muestra un mensaje de error
+                	if(l == null) {
+                		Interfaz.mostrarError("Libro no encontrado!");
+                	//Si esta me fijo que tenga ejemplares disponibles
+                	}else if(l.getEjemplaresDisponibles() > 0) {
+                		//Realizo el prestamo
+                    	boolean prestamoExitoso = logica.prestar(P_nrosocio, P_isbn);
+                		if(prestamoExitoso == true) {	//Verifico si el socio esta en condiciones para dicho prestamo del libro
+                    		Interfaz.mostrarMensaje("Prestamo registrado correctamente!");	//Accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
+                    	}else {
+                    		Interfaz.mostrarError("No se pudo registrar el prestamo!");// accedo al metodo mostrar error que esta en la clase interfaz para pasar el mensaje de error
+                    	}
                 	}else {
-                		Interfaz.mostrarError("No se pudo registrar el prestamo!");// accedo al metodo mostrar error que esta en la clase interfaz para pasar el mensaje de error
+                		//Si no hay ejemplares agrego al socio ala cola de espera 
+                		logica.agregarEspera(P_nrosocio, P_isbn);
                 	}
-                	
                     break;
 
                 case Constante.OPCION_DEVOLVER:
@@ -91,7 +107,7 @@ public class Aplicacion {
                 	if(listaTitulo.isEmpty()) {
                 		Interfaz.mostrarMensaje("No se encontraron libros con ese titulo.");
                 	}else {
-                    	Interfaz.mostrarListaLibros(logica.buscarPorTitulo(B_titulo));	//Con el metodo mostrarlistalibros mostramos todos lo libros buscado por el metodo buscarpor titulo de la clase logica que pueden contener ese titulo 
+                    	Interfaz.mostrarListaLibros(listaTitulo);	//Con el metodo mostrarlistalibros mostramos todos lo libros buscado por el metodo buscarpor titulo de la clase logica que pueden contener ese titulo 
                 	}
                     break;
 
