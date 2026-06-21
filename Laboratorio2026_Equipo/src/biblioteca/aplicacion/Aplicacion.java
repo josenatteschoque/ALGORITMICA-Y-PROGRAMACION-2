@@ -52,60 +52,86 @@ public class Aplicacion {
                     // TODO: pedir datos al usuario y llamar a logica.prestar(...)
                 	String P_nrosocio = Interfaz.pedirNroSocio(); 	//Creo una variable nro de socio y lo cargo pidiendo ala clasee interfaz el metodo pedir nrosocio
                 	String P_isbn = Interfaz.pedirIsbn(); 	//Creo la variable para almacenar el isbn y lo cargo piendole ala clase interfaz el metodo pedir isbn
-                	if(logica.prestar(P_nrosocio, P_isbn)) {	//Verifico si el socio esta en condiciones para dicho prestamo del libro
-                		Interfaz.mostrarMensaje("prestamo registrado correctamente");	//Accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
+                	boolean prestamoExitoso = logica.prestar(P_nrosocio, P_isbn);
+                	if(prestamoExitoso == true) {	//Verifico si el socio esta en condiciones para dicho prestamo del libro
+                		Interfaz.mostrarMensaje("Prestamo registrado correctamente!");	//Accedo al metodo mostrar mensaje que esta en la clase interfaz para enviar y mostrar dicho mensaje
                 	}else {
-                		Interfaz.mostrarError("no se pud registrar el prestamo\n "
-                				+ "verifique que el socio este activo y alla ejemplares disponibles");// accedo al metodo mostrar error que esta en la clase interfaz para pasar el mensaje de error
+                		Interfaz.mostrarError("No se pudo registrar el prestamo!");// accedo al metodo mostrar error que esta en la clase interfaz para pasar el mensaje de error
                 	}
                 	
                     break;
 
                 case Constante.OPCION_DEVOLVER:
                     // TODO: pedir datos al usuario y llamar a logica.devolver(...)
-                	String D_nrosocio = Interfaz.pedirNroSocio();// guarda el numero de socio pedido de de la clase Interfaz
-                	String D_isbn = Interfaz.pedirIsbn(); // guarda el isbn pedido de la clase interfaz
-                	
-                	if(logica.devolver(D_nrosocio, D_isbn)) {//consulta si es posible la debolucion
-                		Interfaz.mostrarMensaje("debolucion registrada correctamente");// muestra el mensaje mandando al metodo mostrar mensaje de la clase interfaz
+                	String D_nrosocio = Interfaz.pedirNroSocio();	//Guarda el numero de socio pedido de de la clase Interfaz
+                	String D_isbn = Interfaz.pedirIsbn();	//Guarda el isbn pedido de la clase interfaz
+                	boolean devolverExitoso = logica.devolver(D_nrosocio, D_isbn);
+                	if(devolverExitoso == true ) {	//consulta si es posible la devolucion
+                		Interfaz.mostrarMensaje("Devolucion registrada correctamente!");	//Muestra el mensaje mandando al metodo mostrar mensaje de la clase interfaz
                 	}else {
-                		Interfaz.mostrarError("no se pudo completar la debolucion"); // muestra el mensaje enciado al metodo mostrar error de la clase interfaz
+                		Interfaz.mostrarError("No se pudo completar la devolucion!");	//Muestra el mensaje enciado al metodo mostrar error de la clase interfaz
                 	}
                     break;
 
                 case Constante.OPCION_BUSCAR_ISBN:
                     // TODO: pedir ISBN y mostrar resultado de logica.buscarPorIsbn(...)
-                	String Bisbn = Interfaz.pedirIsbn(); //pedimos y almacenamos el isbn pedido
-                	Libro libro = logica.buscarPorIsbn(Bisbn);// buscamos el libro con el isbn con el metodo buscarporisbn de la clase interfaz
-                	Interfaz.mostrarLibro(libro);//con el metodo mostrarlibro de la clase interfaz mostramos la caracteristicas del libro
+                	String B_isbn = Interfaz.pedirIsbn(); //Pedimos y almacenamos el isbn pedido
+                	Libro libroEncontrado = logica.buscarPorIsbn(B_isbn);	//Buscamos el libro con el isbn con el metodo buscarporisbn de la clase interfaz
+                	if(libroEncontrado != null) {
+                    	Interfaz.mostrarLibro(libroEncontrado);	//Con el metodo mostrarlibro de la clase interfaz mostramos la caracteristicas del libro
+                	}else {
+                		Interfaz.mostrarError("Nose encontro ningun libro con isbn "+libroEncontrado);
+                	}
                     break;
 
                 case Constante.OPCION_BUSCAR_TITULO:
                     // TODO: pedir título y mostrar resultados de logica.buscarPorTitulo(...)
-                	String T_titulo = Interfaz.pedirTitulo();//guardamos el titulo del libro pedido
-                	Interfaz.mostrarListaLibros(logica.buscarPorTitulo(T_titulo));//con el metodo mostrarlistalibros mostramos todos lo libros buscado por el metodo buscarpor titulo de la clase logica que pueden contener ese titulo 
+                	String B_titulo = Interfaz.pedirTitulo();	//Guardamos el titulo del libro pedido
+                	LinkedPositionalList<Libro> listaTitulo = logica.buscarPorTitulo(B_titulo);
+                	if(listaTitulo.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encontraron libros con ese titulo.");
+                	}else {
+                    	Interfaz.mostrarListaLibros(logica.buscarPorTitulo(B_titulo));	//Con el metodo mostrarlistalibros mostramos todos lo libros buscado por el metodo buscarpor titulo de la clase logica que pueden contener ese titulo 
+                	}
                     break;
 
                 case Constante.OPCION_BUSCAR_AUTOR:
                     // TODO: pedir autor y mostrar resultados de logica.buscarPorAutor(...)
-                	String B_autor = Interfaz.pedirAutor();//guardamos el nombre del autor
-                	Interfaz.mostrarListaLibros(logica.buscarPorAutor(B_autor));//mostramos la lista de libros que este creados por el mismo autor 
+                	String B_autor = Interfaz.pedirAutor();	//Guardamos el nombre del autor
+                	LinkedPositionalList<Libro> librosAutor = logica.buscarPorAutor(B_autor);
+                	if(librosAutor.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encontraron libros con ese autor.");
+                	}else {
+                    	Interfaz.mostrarListaLibros(librosAutor);	//Mostramos la lista de libros que este creados por el mismo autor 
+                	}
                     break;
 
                 case Constante.OPCION_DISPONIBLES:
                     // TODO: mostrar resultado de logica.listarDisponibles()
-                	Interfaz.mostrarListaLibros(logica.listarDisponibles());//con el metodo mostrarlistalibros de la clase interfaz mostramos los libros disponibles
+                	LinkedPositionalList<Libro> disponibles = logica.listarDisponibles();
+                	if(disponibles.isEmpty()) {
+                		Interfaz.mostrarMensaje("No hay libros disponibles!");
+                	}else {
+                		Interfaz.mostrarMensaje("Libros disponibles: ");
+                    	Interfaz.mostrarListaLibros(disponibles);	//Con el metodo mostrarlistalibros de la clase interfaz mostramos los libros disponibles
+                	}
                     break;
 
                 case Constante.OPCION_PRESTAMOS_SOCIO:
                     // TODO: pedir nroSocio y mostrar logica.prestamosActivosDeSocio(...)
-                	String P_S_nrosocio = Interfaz.pedirNroSocio();//guardamos el numero del socio
-                	Interfaz.mostrarListaPrestamos(logica.prestamosActivosDeSocio(P_S_nrosocio));//mostramos la lista de libros prestados al socio
+                	String P_S_nrosocio = Interfaz.pedirNroSocio();	//Guardamos el numero del socio
+                	LinkedPositionalList<Prestamo> prestamosActivos = logica.prestamosActivosDeSocio(P_S_nrosocio);
+                	if(prestamosActivos.isEmpty()) {
+                		Interfaz.mostrarMensaje("No se encontraron prestamos activos!");
+                	}else {
+                		Interfaz.mostrarMensaje("Prestamos activo del socio "+P_S_nrosocio+":");
+                    	Interfaz.mostrarListaPrestamos(prestamosActivos);	//Mostramos la lista de libros prestados al socio
+                	}
                     break;
 
                 case Constante.OPCION_HISTORIAL:
                     // TODO: pedir nroSocio y mostrar logica.historialDeSocio(...)
-                	Interfaz.mostrarMensaje("opcion disponible proximamente en elincremento 2");
+                	Interfaz.mostrarMensaje("opcion disponible proximamente en el incremento 2");
                     break;
 
                 case Constante.OPCION_RANKING:

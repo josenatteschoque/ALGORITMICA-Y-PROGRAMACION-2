@@ -125,7 +125,7 @@ public class Logica {
      */
     public Libro buscarPorIsbn(String isbn) {
         // TODO: implementar
-        return catalogo.get(isbn);//buscamos en el catalogo el libro con el keys isbn y lo retornamos
+        return catalogo.get(isbn);	//Buscamos en el catalogo el libro con el keys isbn y lo retornamos
     }
 
     /**
