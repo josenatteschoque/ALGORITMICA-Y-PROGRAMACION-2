@@ -287,6 +287,18 @@ public class Logica {
      */
     public LinkedPositionalList<Prestamo> prestamosVencidos(LocalDate hoy) {
         // TODO: implementar
-        return null;
-    }
+    	
+    	LinkedPositionalList<Prestamo> vencidos = new LinkedPositionalList<>();//lista vacia donde se van a guardar los prestamos los prestamos vencidos encontrados 
+        	    
+    	for (LinkedPositionalList<Prestamo> lista : prestamosActivo.values()) { // recorre todas las listas de prestamos de cada socio
+       	        for (Prestamo p : lista) { // recorro los prestamos que esta dentro de cada lista de cada socio
+       	            if (p.estaVencido(hoy)) { // uso el metodo ya implementado en modelo.Prestamo
+       	                vencidos.addLast(p);//agrego el prestamo vencido al final de la lista 
+       	            }
+       	        }
+       	    }
+        	    
+       	    return vencidos;//retorna la lista de vencidos 
+        }
+    
 }

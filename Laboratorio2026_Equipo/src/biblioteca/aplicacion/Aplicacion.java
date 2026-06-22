@@ -167,7 +167,15 @@ public class Aplicacion {
                 case Constante.OPCION_VENCIDOS:
                     // TODO: pedir fecha con Interfaz.pedirFecha(...) y mostrar
                     //       logica.prestamosVencidos(LocalDate)
-                	Interfaz.mostrarMensaje("opcion disponible proximamente en el incremento 2");
+                	String fecha = "Fecha: ";
+                	LinkedPositionalList<Prestamo> vencidos= logica.prestamosVencidos(Interfaz.pedirFecha(fecha));
+                	//Veo si la lista esta vacia
+                	if(vencidos.isEmpty()) {
+                		Interfaz.mostrarMensaje("No hay prestamos vencidos!");
+                	}else {	//Si la lista no esta vacia entonces muestro la lista 
+                		Interfaz.mostrarMensaje("Prestamos vencidos: ");
+                		Interfaz.mostrarListaPrestamos(vencidos);
+                	}
                     break;
 
                 case Constante.OPCION_SALIR:
