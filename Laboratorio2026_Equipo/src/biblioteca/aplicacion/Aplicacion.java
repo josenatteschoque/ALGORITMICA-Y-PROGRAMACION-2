@@ -31,8 +31,6 @@ public class Aplicacion {
         ProbeHashMap<String, Socio>   socios    = null;
         ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamos = null;
         
-        ProbeHashMap<String, LinkedQueue<String>> colaDeEspera = null;
-        
 
         try {
             catalogo  = Dato.cargarLibros(CargarParametros.getArchivoLibros());
@@ -45,7 +43,7 @@ public class Aplicacion {
         }
 
         // 3. Inicializar capa lógica
-        Logica logica = new Logica(catalogo, socios, prestamos, colaDeEspera);
+        Logica logica = new Logica(catalogo, socios, prestamos, prestamos);
 
         // 4. Ciclo principal de la aplicación
         int opcion;
@@ -149,14 +147,14 @@ public class Aplicacion {
                     // TODO: pedir nroSocio y mostrar logica.historialDeSocio(...)
                 	String nroSocio = Interfaz.pedirNroSocio();
                 	//Cargo la lista con el historial del socio
-                	LinkedPositionalList<Prestamo> historialSocio = logica.historialDeSocio(nroSocio);
+                	LinkedPositionalList<Prestamo> historial = logica.historialDeSocio(nroSocio);
                 	//Si la lista esta  vacia no tiene historial
-                	if(historialSocio.isEmpty()) {
+                	if(historial.isEmpty()) {
                     	Interfaz.mostrarMensaje("No tiene historial!");
                 	}else {
                 		//Si tiene historial muestro la lista
                 		Interfaz.mostrarMensaje("Historial del socio: "+nroSocio);
-                		Interfaz.mostrarListaPrestamos(historialSocio);
+                		Interfaz.mostrarListaPrestamos(historial);
                 	}
                 	
                     break;

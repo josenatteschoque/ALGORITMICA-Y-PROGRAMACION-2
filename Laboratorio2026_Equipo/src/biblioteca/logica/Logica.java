@@ -17,20 +17,23 @@ public class Logica {
     
     // TODO: definir las estructuras adicionales que necesite
     // Pensar: ¿dónde guardar los préstamos activos?
+    private ProbeHashMap<String,LinkedPositionalList<Prestamo>> prestamosActivo;//Creamos un nuevo mapa para guardar la lista de prestamos de los socios
+    
     // Pensar: ¿cómo modelar la lista de espera por libro?
     // Pensar: ¿dónde guardar el historial de préstamos por socio?
-    private ProbeHashMap<String,LinkedPositionalList<Prestamo>> prestamosActivo;//Creamos un nuevo mapa para guardar la lista de prestamos de los socios
     private ProbeHashMap<String , LinkedQueue<String>> colaDeEspera;	//Creo la cola de espera
-    
+    private ProbeHashMap<String ,LinkedPositionalList<Prestamo>> historialSocio;
+    		
     //==================================================
     public Logica(ProbeHashMap<String, Libro> catalogo,
                   ProbeHashMap<String, Socio> socios,
-                  ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamosActivos, ProbeHashMap<String, LinkedQueue<String>> colaDeEspera) {
+                  ProbeHashMap<String, LinkedPositionalList<Prestamo>> prestamosActivos, 
+                  ProbeHashMap<String ,LinkedPositionalList<Prestamo>> historialSocio) {
         this.catalogo = catalogo;
         this.socios   = socios;
         // TODO: inicializar las estructuras internas a partir de los datos recibidos
         this.prestamosActivo = prestamosActivos;
-        this.colaDeEspera = colaDeEspera;
+        this.historialSocio = historialSocio;
     }
 
     // ── INCREMENTO 1 ──────────────────────────────────────────────
@@ -60,6 +63,8 @@ public class Logica {
     	
     	//Si no hay ejemplares disponibles nose puede prestar 
     	if(libro.getEjemplaresDisponibles() <= 0) {
+    		//Lo agrego ala cola de espera 
+    		agregarEspera(nroSocio, isbn);
     		return false;
     	}
     	
@@ -111,7 +116,9 @@ public class Logica {
     			p.setActivo(false);	//Si es asi desactivamos el prestamo como que ya lo a devuelto
     			
     			p.getLibro().setEjemplaresDisponibles(p.getLibro().getEjemplaresDisponibles()+1);//Actualizamos la cantidad de ejemplares de dicho libro
-
+    			
+    			//Realizo el prestamo al primero de la cola
+    			asignarSiguienteEnEspera(isbn);    			
     			//Retornamos true ya que la operacion se realizo con exito
     			return true;
     		}
@@ -225,6 +232,23 @@ public class Logica {
      */
     public void asignarSiguienteEnEspera(String isbn) {
         // TODO: implementar
+    	LinkedQueue<String> espera = colaDeEspera.get(isbn);
+    	if(espera == null) {
+    		return;
+    	}
+    	
+    	//Si la cola tiene socios asigno el ejemplar al primero en la cola
+    	while(!espera.isEmpty()) {
+    		//Obtengo el primero en la cola
+    		String nroSocio = espera.dequeue();
+    		//Veo si el prestamo se pudo hacer 
+    		if(prestar(nroSocio, isbn) == true) {
+    			System.out.println("Prestamo asignado al socio "+nroSocio);
+    			//Termina el while
+    			return;
+    		}
+    	}
+    
     }
 
     /**
@@ -233,18 +257,18 @@ public class Logica {
      */
     public LinkedPositionalList<Prestamo> historialDeSocio(String nroSocio) {
         // TODO: implementar
-    	LinkedPositionalList<Prestamo> historialSocio = new LinkedPositionalList<>();
+    	LinkedPositionalList<Prestamo> historial = new LinkedPositionalList<>();
     	LinkedPositionalList<Prestamo> lista_de_prestamos = prestamosActivo.get(nroSocio);	//Creo y asigno a esta otra lista la lista de prestamos que tiene el socio en el mapa de prestamos activos
     	if(lista_de_prestamos == null) {
     		//Si la lista de prestamos esta vacia retorna la lista vacia 
-    		return historialSocio;
+    		return historial;
     	}
-    	for(Prestamo p: lista_de_prestamos) {
-    		//Cargo la lista con los prestamos del socio
-    		historialSocio.addLast(p);
-    	}
+
+    	//Cargo el mapa con el nroSocio y su historial
+    	historialSocio.put(nroSocio, lista_de_prestamos);
+    	
     	//Retorna el historial del socio
-    	return historialSocio;
+    	return lista_de_prestamos;
     }
 
     /**
