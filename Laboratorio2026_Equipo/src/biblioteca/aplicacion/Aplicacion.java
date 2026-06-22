@@ -147,7 +147,18 @@ public class Aplicacion {
 
                 case Constante.OPCION_HISTORIAL:
                     // TODO: pedir nroSocio y mostrar logica.historialDeSocio(...)
-                	Interfaz.mostrarMensaje("opcion disponible proximamente en el incremento 2");
+                	String nroSocio = Interfaz.pedirNroSocio();
+                	//Cargo la lista con el historial del socio
+                	LinkedPositionalList<Prestamo> historialSocio = logica.historialDeSocio(nroSocio);
+                	//Si la lista esta  vacia no tiene historial
+                	if(historialSocio.isEmpty()) {
+                    	Interfaz.mostrarMensaje("No tiene historial!");
+                	}else {
+                		//Si tiene historial muestro la lista
+                		Interfaz.mostrarMensaje("Historial del socio: "+nroSocio);
+                		Interfaz.mostrarListaPrestamos(historialSocio);
+                	}
+                	
                     break;
 
                 case Constante.OPCION_RANKING:

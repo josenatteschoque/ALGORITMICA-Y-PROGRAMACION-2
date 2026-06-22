@@ -233,7 +233,18 @@ public class Logica {
      */
     public LinkedPositionalList<Prestamo> historialDeSocio(String nroSocio) {
         // TODO: implementar
-        return null;
+    	LinkedPositionalList<Prestamo> historialSocio = new LinkedPositionalList<>();
+    	LinkedPositionalList<Prestamo> lista_de_prestamos = prestamosActivo.get(nroSocio);	//Creo y asigno a esta otra lista la lista de prestamos que tiene el socio en el mapa de prestamos activos
+    	if(lista_de_prestamos == null) {
+    		//Si la lista de prestamos esta vacia retorna la lista vacia 
+    		return historialSocio;
+    	}
+    	for(Prestamo p: lista_de_prestamos) {
+    		//Cargo la lista con los prestamos del socio
+    		historialSocio.addLast(p);
+    	}
+    	//Retorna el historial del socio
+    	return historialSocio;
     }
 
     /**
