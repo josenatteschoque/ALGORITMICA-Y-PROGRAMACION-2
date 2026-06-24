@@ -13,4 +13,6 @@ public class Constante {
     public static final int OPCION_RANKING         = 9;
     public static final int OPCION_VENCIDOS        = 10;
     public static final int OPCION_SALIR           = 0;
+    //Agrego esto para que no tenga que modificarlo en la clase logica en el metodo prestar().
+    public static final int FECHA_VENCIMIENTO = 14;
 }

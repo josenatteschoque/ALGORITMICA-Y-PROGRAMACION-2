@@ -8,6 +8,10 @@ import java.util.Scanner;
 import biblioteca.aplicacion.Constante;
 import biblioteca.modelo.Libro;
 import biblioteca.modelo.Prestamo;
+import biblioteca.modelo.Socio;
+import net.datastructures.HeapPriorityQueue;
+import net.datastructures.LinkedPositionalList;
+import net.datastructures.ProbeHashMap;
 
 public class Interfaz {
 
@@ -118,7 +122,7 @@ public class Interfaz {
 	
 	// ── Métodos de presentación de resultados ──
 
-	public static void mostrarLibro(Libro libro) {
+	public static void mostrarLibro(Libro libro ) {
 		// TODO: implementar
 		
 		if(libro == null) {	//Verifico si se encuetra dicho libro
@@ -134,6 +138,7 @@ public class Interfaz {
 		System.out.println("Genero: "+libro.getGenero());
 		System.out.println("Año de publicacion: "+libro.getAnioPublicacion());
 		System.out.println("Copias disponibles: "+libro.getEjemplaresDisponibles());
+
 		System.out.println("---------------------------------------");
 	}
 
@@ -175,6 +180,34 @@ public class Interfaz {
 		if(!hayprestamos) {	//Esta condicion solo se cumple cuando el socio no tiene prestamos
 			mostrarMensaje("no hay prestamos");
 		}
+	}
+	
+	//Metodo que muestra la lista de los libros mas solicitados
+	//Esto me falta para poder presentarlo en el final de la materia pero ya esta imprementado!
+	public static LinkedPositionalList<Libro> rankingLibro(HeapPriorityQueue<Integer, String> colavmenor, int n, ProbeHashMap<String, Libro> catalogo, ProbeHashMap<String, Integer> conteo) {
+		
+		//Creo la lista donde estaran los libros mas solicitados
+		LinkedPositionalList<Libro> resultados = new LinkedPositionalList<>();
+		
+		int posicion = 1;//declaro contador para las pocicion del rankig
+		while (!colavmenor.isEmpty() && posicion <= n) {//establesco un loop para que se repita mientras la cola este vacia o ya mostro el top de n cantidad de libros solicitados por el usuario
+			String isbn = colavmenor.removeMin().getValue();//saco el isbn de la cola reoviendolo y asignandolo a la variable
+			Libro libro = catalogo.get(isbn);//con le isbn busco dicho libro
+			int cant = conteo.get(isbn);//con el isbn busco el contaodr de dicho libro en el mapa de contadores
+			//añado al final de la lista resultados el libro de mayor a menor
+			resultados.addLast(libro);
+			//imprimo el puesto, titulo, autor y la cantidad de veces que fue solicitado un libro
+			System.out.println("---------------------------------------");
+			System.out.println("Puesto N°" + posicion);
+			System.out.println("Titulo: " + libro.getTitulo());
+			System.out.println("Autor: " + libro.getAutor());
+			System.out.println("Veces solicitado: " + cant);
+			System.out.println("---------------------------------------");
+			posicion++;//incremento la posicion
+		}
+		
+		//Retorna la lista de libros mas solicitados
+		return resultados;
 	}
 
 	public static void mostrarMensaje(String mensaje) {

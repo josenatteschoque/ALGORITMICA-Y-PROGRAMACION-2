@@ -1,7 +1,7 @@
 package biblioteca.aplicacion;
 
 import java.io.IOException;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 import net.datastructures.LinkedPositionalList;
 import net.datastructures.ProbeHashMap;
@@ -13,7 +13,7 @@ import biblioteca.modelo.Libro;
 import biblioteca.modelo.Prestamo;
 import biblioteca.modelo.Socio;
 
-import net.datastructures.LinkedQueue;
+//import net.datastructures.LinkedQueue;
 
 public class Aplicacion {
 
@@ -43,7 +43,7 @@ public class Aplicacion {
         }
 
         // 3. Inicializar capa lógica
-        Logica logica = new Logica(catalogo, socios, prestamos, prestamos);
+        Logica logica = new Logica(catalogo, socios, prestamos);
 
         // 4. Ciclo principal de la aplicación
         int opcion;
@@ -161,7 +161,9 @@ public class Aplicacion {
 
                 case Constante.OPCION_RANKING:
                     // TODO: pedir N y mostrar logica.librosMasSolicitados(N)
-                	Interfaz.mostrarMensaje("opcion disponible proximamente en el incremento 2");
+                	  int n = Interfaz.pedirN();//pido la cantidad de libros en el top mostrados
+                	  logica.librosMasSolicitados(n);
+                	    
                     break;
 
                 case Constante.OPCION_VENCIDOS:
