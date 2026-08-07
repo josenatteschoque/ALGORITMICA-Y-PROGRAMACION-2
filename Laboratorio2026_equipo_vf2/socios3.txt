@@ -1,0 +1,15 @@
+S001;Juan;Perez;juan.perez@mail.com;true
+S002;Maria;Gomez;maria.gomez@mail.com;true
+S003;Carlos;Lopez;carlos.lopez@mail.com;false
+S004;Ana;Martinez;ana.martinez@mail.com;true
+S005;Luis;Fernandez;luis.fernandez@mail.com;true
+S006;Laura;Garcia;laura.garcia@mail.com;true
+S007;Pedro;Rodriguez;pedro.rodriguez@mail.com;false
+S008;Sofia;Hernandez;sofia.hernandez@mail.com;true
+S009;Diego;Torres;diego.torres@mail.com;true
+S010;Valentina;Flores;valentina.flores@mail.com;true
+S011;Mateo;Ruiz;mateo.ruiz@mail.com;true
+S012;Camila;Diaz;camila.diaz@mail.com;false
+S013;Lucas;Moreno;lucas.moreno@mail.com;true
+S014;Isabella;Jimenez;isabella.jimenez@mail.com;true
+S015;Sebastian;Alvarez;sebastian.alvarez@mail.com;true
