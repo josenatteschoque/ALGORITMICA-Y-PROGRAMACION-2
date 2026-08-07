@@ -1,0 +1,38 @@
+!SESSION 2026-06-16 12:39:10.136 -----------------------------------------------
+eclipse.buildId=4.39.0.20260305-0817
+java.version=23.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data C:\Users\amend\OneDrive\Desktop\Algoritmica y Programacion 2\Ejercicios\Tp8
+
+!ENTRY ch.qos.logback.classic 1 0 2026-06-16 12:39:19.728
+!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
+
+!ENTRY ch.qos.logback.classic 1 0 2026-06-16 12:39:24.876
+!MESSAGE Logback config file: C:\Users\amend\OneDrive\Desktop\Algoritmica y Programacion 2\Ejercicios\Tp8\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.101.20251017-1242.xml
+
+!ENTRY org.eclipse.egit.ui 2 0 2026-06-16 12:40:01.547
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\amend'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.jobs 2 2 2026-06-16 12:40:39.773
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.core.runtime.jobs.Job$2 RUNNING
+	 at org.eclipse.swt.internal.win32.OS.WaitMessage(Native Method)
+	 at org.eclipse.swt.widgets.Display.sleep(Display.java:4848)
+	 at org.eclipse.jface.window.Window.runEventLoop(Window.java:820)
+	 at org.eclipse.jface.window.Window.open(Window.java:799)
+	 at org.eclipse.jface.dialogs.MessageDialog.open(MessageDialog.java:608)
+	 at org.eclipse.ui.internal.WindowsDefenderConfigurator.lambda$4(WindowsDefenderConfigurator.java:241)
+	 at org.eclipse.swt.widgets.Display.lambda$6(Display.java:4918)
+	 at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:183)
+	 at org.eclipse.swt.widgets.Display.syncExec(Display.java:4881)
+	 at org.eclipse.swt.widgets.Display.syncCall(Display.java:4916)
+	 at org.eclipse.ui.internal.WindowsDefenderConfigurator.askForDefenderHandlingDecision(WindowsDefenderConfigurator.java:188)
+	 at org.eclipse.ui.internal.WindowsDefenderConfigurator.runExclusionCheck(WindowsDefenderConfigurator.java:163)
+	 at org.eclipse.ui.internal.WindowsDefenderConfigurator.lambda$0(WindowsDefenderConfigurator.java:106)
+	 at org.eclipse.core.runtime.jobs.Job$2.run(Job.java:187)
+	 at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
